@@ -1,0 +1,175 @@
+body {
+    width: 100%;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+html {
+    width: 100%;
+}
+
+/* input[type="range"]{
+    -webkit-appearance: none;
+    -moz-apperance: none;
+    border-radius: 6px;
+    height: 6px;
+	background-image: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        color-stop(1, #94A14E)
+		);
+}
+
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    background-color: #E9E9E9;
+    border: 1px solid #CECECE;
+    height: 15px;
+    width: 15px;
+} */
+
+input[type='submit'] {
+	border: 0px;
+    background: #fff;
+	padding: 0px;
+	float: center;
+}
+
+#map {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+}
+
+#statustextview {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+  /*   float: right; */
+    position: absolute;
+	top: 10%;
+	left: 0.5%;
+    font-size: 24px;
+    font-family: 'Droid Sans Mono', Courier, Courier News, monospace;
+}
+
+.pfd-top{
+  position: absolute;
+  top: 40px;
+}
+
+.pfd-bottom {
+  position: absolute;
+  bottom: 0px;
+}
+
+.pfd-left {
+  left: 0px;
+}
+
+.pfd-right {
+  right: 0px;
+}
+
+#pfdblock {
+  color: white;
+  background-color: rgba(0,0,0, 0.5);
+}
+
+#pfdview{
+}
+
+#pfdstatus {
+    padding-top: 10px;
+    font-size: 24px;
+    font-family: 'Droid Sans Mono', Courier, Courier News, monospace;
+}
+
+#guidealtitudeview {
+	position: absolute;
+	top: 90%;
+	left: 50px;
+}
+
+.controls {
+    float: right;
+}
+
+.telemetry {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.layerpicker {
+    display: inline;
+}
+
+.zoomslider {
+    display: inline;
+}
+
+.link {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.ok {
+    background-color: green;
+    color: white;
+}
+
+.slow {
+    background-color: yellow;
+    color: black;
+}
+
+.error {
+    background-color: red;
+    color: black;
+}
+
+.t_sta_txt {
+    font-size: 32px;
+}
+
+.navbar-fixed-top, .navbar-fixed-bottom {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+/* Shrink some elements on phones. */
+@media (max-width: 640px) {
+    .navbar .btn {
+        margin: 2px 2px 3px !important;
+        padding: 2px 5px 2px !important;
+    }
+
+    .navbar .nav {
+        margin: 0 5px 0 0 !important;
+    }
+
+    .divider-vertical {
+        margin: 0 4px !important;
+    }
+}
+
+.mapoverlay-top{
+  position: absolute;
+  top: 50px;
+}
+
+.mapoverlay-bottom {
+  position: absolute;
+  bottom: 10px;
+}
+
+.mapoverlay-left {
+  left: 10px;
+}
+
+.mapoverlay-right {
+  right: 10px;
+}
