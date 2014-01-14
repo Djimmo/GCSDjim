@@ -8,6 +8,14 @@ html {
     width: 100%;
 }
 
+
+#footer {
+      Position: absolute;
+      Width: 100%;
+      Bottom: 0;
+      Height: 41px;  /* This value is the height of your footer */
+}
+
 /* input[type="range"]{
     -webkit-appearance: none;
     -moz-apperance: none;
@@ -36,6 +44,13 @@ input[type='submit'] {
 	float: center;
 }
 
+input[type='number'] {
+	-webkit-appearance: none !important;
+	width: 40px;
+	float: center;
+    padding: 0px;
+}
+	
 #map {
     position: absolute;
     top: 0px;

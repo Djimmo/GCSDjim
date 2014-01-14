@@ -30,12 +30,12 @@ GCSDjimMolenkamp.FlightModePopoverViewDelegate.prototype.popoverCreated = functi
 };
 
 GCSDjimMolenkamp.FlightModePopoverViewDelegate.prototype.popoverDestroyed = function() {
-  this.$el = null;
-  this.cleanupSubview('takeoffButtonView');
+  /* this.$el = null; */
+/*   this.cleanupSubview('takeoffButtonView'); */
   this.cleanupSubview('armingButtonView');
-  this.cleanupSubview('loiterButtonView');
+/*   this.cleanupSubview('loiterButtonView');
   this.cleanupSubview('rtlButtonView');
-  this.cleanupSubview('landButtonView');
+  this.cleanupSubview('landButtonView'); */
 };
 
 GCSDjimMolenkamp.FlightModePopoverViewDelegate.prototype.setupPopover = function() {
@@ -48,9 +48,9 @@ GCSDjimMolenkamp.FlightModePopoverViewDelegate.prototype.setupPopover = function
   var land =
       '<a class="btn btn-large" id="flightmode-btn-land" href="#">Land</a>';
   var arm =
-      '<p><a class="btn btn-large" id="flightmode-btn-arm" href="#">Arm</a></p><br />';
+      '<center><p><a class="btn btn-large" id="flightmode-btn-arm" href="#">Arm</a></p></center>'; /* <br />'; */
 
-  this.$el.find('.popover-content').html(arm + '<br />' + takeoff + loiter + rtl + land);
+  this.$el.find('.popover-content').html(arm); /* + '<br />' + takeoff + loiter + rtl + land); */
 
   this.armingButtonView = new GCSDjimMolenkamp.ArmingButtonView({
     'el': $('#flightmode-btn-arm'),

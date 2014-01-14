@@ -51,6 +51,6 @@ GCSDjimMolenkamp.DistanceView.prototype.setButton_ = function(cssClass, textLabe
   this.$el.removeClass('btn-success btn-warning btn-danger btn-inverse');
   this.$el.addClass(cssClass);
   var html = '<span class="hidden-phone">' + textLabel + '</span>';
-  html += '<i class="icon-fire icon-white visible-phone"></i>';
+  html += '<i class="icon-resize-horizontal icon-white visible-phone"></i>';
   this.$el.html(html);
 };

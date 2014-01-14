@@ -14,7 +14,10 @@
   </style>
 <link rel="stylesheet" type="text/css" href="third_party/bootstrap/css/bootstrap-responsive.css" />
 <link rel="stylesheet" type="text/css" href="third_party/leaflet/leaflet.css" />
+
+<!-- GENERAL STYLE SHEET -->
 <link rel="stylesheet" type="text/css" href="style.css" />
+
 <!-- JQUERY -->
 <script type="text/javascript" src="third_party/jquery-1.7.2.js"></script>
 <script type="text/javascript" src="third_party/jquery.color.js"></script>
@@ -51,10 +54,6 @@
 <!-- MAVELOUS -->
 <script src="script/app.js"></script>
 
-<!-- SLIDER (added by Djim) -->
-<script type="text/javascript" src="script/simple-slider.js"></script>
-<link href="simple-slider.css" rel="stylesheet" type="text/css" />
-
 <script>
   $(function() {
   window.mavelous_app = new GCSDjimMolenkamp.App();
@@ -74,22 +73,19 @@
   <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container-fluid">
-        <a class="brand hidden-phone" href="#">Touch Control v.3</a>
+        <a class="brand hidden-phone" href="#">Tou v.3</a>
         <ul class="nav">
           <li id="navbar-overview" class="hidden-phone">
             <a href="#overview">Overview</a>
           </li>
-          <li id="navbar-maponly">
+          <!-- li id="navbar-maponly">
             <a href="#maponly">Map</a>
-          </li>
-          <li class="divider-vertical"></li>
+          </li> -->
+       <!--    <li class="divider-vertical"></li> -->
         </ul>
-        <span class="navbar-text"></span>
-        <span class="navbar-text" id="fps"></span>
-        <ul class="nav pull-right">
-          <li class="divider-vertical"></li>
-          <li><a href="#" id="navbar-a-settings">Settings</a></li>
-        </ul>
+<!--    <span class="navbar-text"></span>
+        <span class="navbar-text" id="fps"></span> -->
+      
         <p class="navbar-text pull-right">
 		  <a class="btn" id="navbar-btn-distance" href="#">Distance</a>
 		  <a class="btn" id="navbar-btn-altspeed" href="#">AltSpeed</a>
@@ -119,25 +115,35 @@
     </a>
   </div>
 
-  <div id="guidealtitudeview">
- <!--  <input id="guidealt-input" type="range" data-slider="true" value="20" data-slider-range="10,100" data-slider-highlight="true"> -->
-  
-  </div>
+  <!-- <div id="guidealtitudeview">
+  <input id="guidealt-input" type="range" data-slider="true" value="20" data-slider-range="10,100" data-slider-highlight="true">
+  </div> -->
  
   
-  <div class="navbar navbar-fixed-bottom">
+  <div id="footer" class="navbar navbar-fixed-bottom">
 	<div class="navbar-inner">
 		<div class="container-fluid">
-			<a class="btn" href="#"><span id="guidealt-text"></span></a>
-			<input id="guidealt-input" type="range" value="20" min="10" max="100">
-			<input id="guidealt-submit" type="submit" value="Set">
-					
-<!-- 			<p class="navbar-text pull-right">
+			<!-- <span id="guidealt-text" class="btn"></span> -->
+			Altitude
+			<input id="guidealt-input" class="btn" type="number" value="20" min="10" max="150" step="5">m
+			<input id="guidealt-submit" class="btn" type="submit" value="Set">
+			<ul class="nav pull-right">
+			 
+			  <li class="divider-vertical"></li>
+			  <li><a href="#" id="navbar-a-settings">Settings</a></li>
+			</ul>
+			<p class="navbar-text pull-right">
+				<a class="btn btn-large" id="flightmode-btn-takeoff" href="#">Take Off</a>
+				<a class="btn btn-large" id="flightmode-btn-loiter" href="#">Loiter</a>
+				<a class="btn btn-large" id="flightmode-btn-rtl" href="#">RTL</a>
+				<a class="btn btn-large" id="flightmode-btn-land" href="#">Land</a>
+			</p> 
+<!-- 		<p class="navbar-text pull-right">
 			<a class="btn" id="flightmode-btn-takeoff" href="#">Take Off2</a>
 			<a class="btn" id="flightmode-btn-loiter" href="#">Loiter2</a>
 			<a class="btn" id="flightmode-btn-rtl" href="#">RTL2</a>
 			<a class="btn" id="flightmode-btn-land" href="#">Land2</a>
-			</p> -->
+			-->
 		</div>
 	</div>
   </div> 
@@ -159,7 +165,7 @@
                </select> </p>
       <!-- <p>Icon <select id="settings-vehicleiconpicker"></select> </p> -->
       </p>
-      <hr>
+      <!-- <hr>
       <h4>PFD</h4><br />
       Position:
       <div class="btn-group" data-toggle="buttons-radio">
@@ -170,7 +176,7 @@
       <div class="btn-group" data-toggle="buttons-radio">
         <button class="btn" id="settings-pfdpos-up">Top</button>
         <button class="btn" id="settings-pfdpos-down">Bottom</button>
-      </div>
+      </div> -->
     </div>
     
     <div class="modal-footer">
@@ -178,20 +184,5 @@
     </div>
   </div>
   
-  <!-- Script for Slider value (Djim ) -->
-  <script>
-  $("[data-slider]")
-    .each(function () {
-      var input = $(this);
-      $("<span>")
-        .addClass("output")
-        .insertAfter($(this));
-    })
-    .bind("slider:ready slider:changed", function (event, data) {
-      $(this)
-        .nextAll(".output:first")
-          .html(data.value.toFixed(0) + 'm');
-    });
-  </script>
 </body>
 </html>
