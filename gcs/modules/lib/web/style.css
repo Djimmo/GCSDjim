@@ -16,26 +16,17 @@ html {
       Height: 41px;  /* This value is the height of your footer */
 }
 
-/* input[type="range"]{
-    -webkit-appearance: none;
-    -moz-apperance: none;
-    border-radius: 6px;
-    height: 6px;
-	background-image: -webkit-gradient(
-        linear,
-        left top,
-        right top,
-        color-stop(1, #94A14E)
-		);
-}
-
-input[type='range']::-webkit-slider-thumb {
-    -webkit-appearance: none !important;
-    background-color: #E9E9E9;
-    border: 1px solid #CECECE;
-    height: 15px;
-    width: 15px;
-} */
+input[type='range'] {  
+    -webkit-appearance: none;  
+    background-color: white;  
+}  
+  
+input[type='range']::-webkit-slider-thumb {  
+    -webkit-appearance: none;  
+    background-color: #444;  
+    width: 25px;  
+    height: 25px;  
+}  
 
 input[type='submit'] {
 	border: 0px;
@@ -45,6 +36,13 @@ input[type='submit'] {
 }
 
 input[type='number'] {
+	-webkit-appearance: none !important;
+	width: 40px;
+	float: center;
+    padding: 0px;
+}
+
+input[type='tel'] {
 	-webkit-appearance: none !important;
 	width: 40px;
 	float: center;
