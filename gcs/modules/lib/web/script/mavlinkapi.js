@@ -1,7 +1,7 @@
-goog.provide('GCSDjimMolenkamp.MavlinkAPI');
-goog.provide('GCSDjimMolenkamp.MavlinkMessage');
+goog.provide('MineGCS.MavlinkAPI');
+goog.provide('MineGCS.MavlinkMessage');
 
-goog.require('GCSDjimMolenkamp.FakeVehicle');
+goog.require('MineGCS.FakeVehicle');
 
 goog.require('goog.debug.Logger');
 
@@ -14,10 +14,10 @@ goog.require('goog.debug.Logger');
  * @constructor
  * @extends {Backbone.Model}
  */
-GCSDjimMolenkamp.MavlinkMessage = function(attrs) {
+MineGCS.MavlinkMessage = function(attrs) {
   goog.base(this, attrs);
 };
-goog.inherits(GCSDjimMolenkamp.MavlinkMessage, Backbone.Model);
+goog.inherits(MineGCS.MavlinkMessage, Backbone.Model);
 
 
 
@@ -29,17 +29,17 @@ goog.inherits(GCSDjimMolenkamp.MavlinkMessage, Backbone.Model);
  * @constructor
  * @extends {Backbone.Model}
  */
-GCSDjimMolenkamp.MavlinkAPI = function(attrs) {
+MineGCS.MavlinkAPI = function(attrs) {
   goog.base(this, attrs);
 };
-goog.inherits(GCSDjimMolenkamp.MavlinkAPI, Backbone.Model);
+goog.inherits(MineGCS.MavlinkAPI, Backbone.Model);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.MavlinkAPI.prototype.initialize = function() {
+MineGCS.MavlinkAPI.prototype.initialize = function() {
   /** @type {goog.debug.Logger} */
   this.logger_ = goog.debug.Logger.getLogger('mavelous.MavlinkAPI');
   /** @type {string} */
@@ -51,9 +51,9 @@ GCSDjimMolenkamp.MavlinkAPI.prototype.initialize = function() {
   /** @type {number} */
   this.failcount = 0;
   // Table of message models, keyed by message type.
-  /** @type {Object.<string, GCSDjimMolenkamp.MavlinkMessage>} */
+  /** @type {Object.<string, MineGCS.MavlinkMessage>} */
   this.messageModels = {};
-  /** @type {?GCSDjimMolenkamp.FakeVehicle} */
+  /** @type {?MineGCS.FakeVehicle} */
   this.fakevehicle = null;
 };
 
@@ -65,12 +65,12 @@ GCSDjimMolenkamp.MavlinkAPI.prototype.initialize = function() {
  * @param {function(Object)} handlerFunction The message handler function.
  * @param {Object} context Specifies the object which |this| should
  *     point to when the function is run.
- * @return {GCSDjimMolenkamp.MavlinkMessage} The message model.
+ * @return {MineGCS.MavlinkMessage} The message model.
  */
-GCSDjimMolenkamp.MavlinkAPI.prototype.subscribe = function(
+MineGCS.MavlinkAPI.prototype.subscribe = function(
     msgType, handlerFunction, context) {
   if (!this.messageModels[msgType]) {
-    this.messageModels[msgType] = new GCSDjimMolenkamp.MavlinkMessage({
+    this.messageModels[msgType] = new MineGCS.MavlinkMessage({
       '_type': msgType,
       '_index': -1});
   }
@@ -85,7 +85,7 @@ GCSDjimMolenkamp.MavlinkAPI.prototype.subscribe = function(
  * @param {Object} msgEnvelopes The messages.
  * @private
  */
-GCSDjimMolenkamp.MavlinkAPI.prototype.handleMessages_ = function(msgEnvelopes) {
+MineGCS.MavlinkAPI.prototype.handleMessages_ = function(msgEnvelopes) {
   this.trigger('gotServerResponse');
   _.each(msgEnvelopes, this.handleMessage_, this);
 };
@@ -98,7 +98,7 @@ GCSDjimMolenkamp.MavlinkAPI.prototype.handleMessages_ = function(msgEnvelopes) {
  * @param {string} msgType The message type.
  * @private
  */
-GCSDjimMolenkamp.MavlinkAPI.prototype.handleMessage_ = function(msg, msgType) {
+MineGCS.MavlinkAPI.prototype.handleMessage_ = function(msg, msgType) {
   // Update the model if this is a new message for this type.
   var msgModel = this.messageModels[msgType];
   var mdlidx = msgModel.get('_index');
@@ -117,7 +117,7 @@ GCSDjimMolenkamp.MavlinkAPI.prototype.handleMessage_ = function(msg, msgType) {
  * Gets the latest mavlink messages from the server (or from the fake
  * model, if we're offline).
  */
-GCSDjimMolenkamp.MavlinkAPI.prototype.update = function() {
+MineGCS.MavlinkAPI.prototype.update = function() {
   if (this.online) {
     this.onlineUpdate();
   } else {
@@ -129,7 +129,7 @@ GCSDjimMolenkamp.MavlinkAPI.prototype.update = function() {
 /**
  * Gets the latest mavlink messages from the server.
  */
-GCSDjimMolenkamp.MavlinkAPI.prototype.onlineUpdate = function() {
+MineGCS.MavlinkAPI.prototype.onlineUpdate = function() {
   $.ajax({
     context: this,
     type: 'GET',
@@ -156,7 +156,7 @@ GCSDjimMolenkamp.MavlinkAPI.prototype.onlineUpdate = function() {
 /**
  * Gets the latest fake messages if we're in offline mode.
  */
-GCSDjimMolenkamp.MavlinkAPI.prototype.offlineUpdate = function() {
+MineGCS.MavlinkAPI.prototype.offlineUpdate = function() {
   goog.asserts.assert(this.fakevehicle);
   this.fakevehicle.update();
   var msgs = this.fakevehicle.requestMessages(this.messageModels);
@@ -167,11 +167,11 @@ GCSDjimMolenkamp.MavlinkAPI.prototype.offlineUpdate = function() {
 /**
  * Switches to offline mode.
  */
-GCSDjimMolenkamp.MavlinkAPI.prototype.useOfflineMode = function() {
+MineGCS.MavlinkAPI.prototype.useOfflineMode = function() {
   if (this.online && !this.gotonline) {
     this.logger_.info('Switching to offline mode');
     this.online = false;
-    this.fakevehicle = new GCSDjimMolenkamp.FakeVehicle({
+    this.fakevehicle = new MineGCS.FakeVehicle({
       'lat': 45.5233, 'lon': -122.6670
     });
   }

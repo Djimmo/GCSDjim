@@ -1,25 +1,25 @@
-goog.provide('GCSDjimMolenkamp.BatteryButton');
+goog.provide('MineGCS.BatteryButton');
 
 
 
 /**
  * Battery status button.
- * @param {{mavlinkSrc: GCSDjimMolenkamp.MavlinkAPI, el: (Element|jQuery)}} properties
+ * @param {{mavlinkSrc: MineGCS.MavlinkAPI, el: (Element|jQuery)}} properties
  *     Button properties.
  * @constructor
  * @extends {Backbone.View}
  */
-GCSDjimMolenkamp.BatteryButton = function(properties) {
+MineGCS.BatteryButton = function(properties) {
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.BatteryButton, Backbone.View);
+goog.inherits(MineGCS.BatteryButton, Backbone.View);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.BatteryButton.prototype.initialize = function() {
+MineGCS.BatteryButton.prototype.initialize = function() {
   var mavlink = this.options['mavlinkSrc'];
   this.sysstatus = mavlink.subscribe('SYS_STATUS', this.onSysStatus, this);
   this.$el = this.options['el'];
@@ -29,7 +29,7 @@ GCSDjimMolenkamp.BatteryButton.prototype.initialize = function() {
 /**
  * Handles SYS_STATUS mavlink messages.
  */
-GCSDjimMolenkamp.BatteryButton.prototype.onSysStatus = function() {
+MineGCS.BatteryButton.prototype.onSysStatus = function() {
   var stat = this.sysstatus;
   var remaining = stat.get('battery_remaining');
   var voltage = stat.get('voltage_battery')/1000;
@@ -52,7 +52,7 @@ GCSDjimMolenkamp.BatteryButton.prototype.onSysStatus = function() {
  * @param {string} textLabel The button label.
  * @private
  */
-GCSDjimMolenkamp.BatteryButton.prototype.setButton_ = function(cssClass, textLabel) {
+MineGCS.BatteryButton.prototype.setButton_ = function(cssClass, textLabel) {
   this.$el.removeClass('btn-success btn-warning btn-danger btn-inverse');
   this.$el.addClass(cssClass);
   var html = '<span class="hidden-phone">Batt: ' + textLabel + '</span>';

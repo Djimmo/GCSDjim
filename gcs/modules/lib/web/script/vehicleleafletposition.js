@@ -1,4 +1,4 @@
-goog.provide('GCSDjimMolenkamp.VehicleLeafletPosition');
+goog.provide('MineGCS.VehicleLeafletPosition');
 
 
 
@@ -10,17 +10,17 @@ goog.provide('GCSDjimMolenkamp.VehicleLeafletPosition');
  * @constructor
  * @extends {Backbone.Model}
  */
-GCSDjimMolenkamp.VehicleLeafletPosition = function(properties) {
+MineGCS.VehicleLeafletPosition = function(properties) {
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.VehicleLeafletPosition, Backbone.Model);
+goog.inherits(MineGCS.VehicleLeafletPosition, Backbone.Model);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.VehicleLeafletPosition.prototype.defaults = function() {
+MineGCS.VehicleLeafletPosition.prototype.defaults = function() {
   return { 'position': null, 'heading': 0 };
 };
 
@@ -29,7 +29,7 @@ GCSDjimMolenkamp.VehicleLeafletPosition.prototype.defaults = function() {
  * @override
  * @export
  */
-GCSDjimMolenkamp.VehicleLeafletPosition.prototype.initialize = function() {
+MineGCS.VehicleLeafletPosition.prototype.initialize = function() {
   var mavlink = this.get('mavlinkSrc');
   this.vehicleGps = mavlink.subscribe(
       'GPS_RAW_INT',
@@ -45,7 +45,7 @@ GCSDjimMolenkamp.VehicleLeafletPosition.prototype.initialize = function() {
 /**
  * Handles GPS_RAW_INT mavlink messages.
  */
-GCSDjimMolenkamp.VehicleLeafletPosition.prototype.withVehicleGps = function() {
+MineGCS.VehicleLeafletPosition.prototype.withVehicleGps = function() {
   var veh = this.vehicleGps.toJSON();
   if (veh['lat'] === 0 && veh['lon'] === 0) return;
   this.set('position', new L.LatLng(veh['lat'] / 1.0e7, veh['lon'] / 1.0e7));
@@ -55,7 +55,7 @@ GCSDjimMolenkamp.VehicleLeafletPosition.prototype.withVehicleGps = function() {
 /**
  * Handles VFR_HUD mavlink messages.
  */
-GCSDjimMolenkamp.VehicleLeafletPosition.prototype.withVehicleHead = function() {
+MineGCS.VehicleLeafletPosition.prototype.withVehicleHead = function() {
   var h = this.vehicleHead.get('heading');
   this.set('heading', h);
 };

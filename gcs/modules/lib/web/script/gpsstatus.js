@@ -1,29 +1,29 @@
-goog.provide('GCSDjimMolenkamp.GpsButtonView');
-goog.provide('GCSDjimMolenkamp.GpsTextView');
+goog.provide('MineGCS.GpsButtonView');
+goog.provide('MineGCS.GpsTextView');
 
 /**
- * @param {{mavlinkSrc: GCSDjimMolenkamp.MavlinkAPI, el: jQuery}} properties View
+ * @param {{mavlinkSrc: MineGCS.MavlinkAPI, el: jQuery}} properties View
  *     properties.
  * @constructor
  * @extends {Backbone.View}
  */
-GCSDjimMolenkamp.GpsButtonView = function(properties) {
+MineGCS.GpsButtonView = function(properties) {
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.GpsButtonView, Backbone.View);
+goog.inherits(MineGCS.GpsButtonView, Backbone.View);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.GpsButtonView.prototype.initialize = function() {
+MineGCS.GpsButtonView.prototype.initialize = function() {
   var mavlink = this.options['mavlinkSrc'];
   this.renderTemplate_();
   this.gps = mavlink.subscribe('GPS_RAW_INT', this.onGPS_, this);
 };
 
-GCSDjimMolenkamp.GpsButtonView.prototype.renderTemplate_ = function() {
+MineGCS.GpsButtonView.prototype.renderTemplate_ = function() {
   var templ = "";
   templ += '<span class="hidden-phone">';
   templ += '<span id="gps-btn-lock-status">GPS</span>';
@@ -39,7 +39,7 @@ GCSDjimMolenkamp.GpsButtonView.prototype.renderTemplate_ = function() {
  *     message).
  * @private
  */
-GCSDjimMolenkamp.GpsButtonView.prototype.renderFixType_ = function(fix_type) {
+MineGCS.GpsButtonView.prototype.renderFixType_ = function(fix_type) {
   this.$el.removeClass('btn-success btn-danger btn-warning btn-inverse');
   var lclass = 'btn-inverse';
   var txt = 'GPS';
@@ -65,7 +65,7 @@ GCSDjimMolenkamp.GpsButtonView.prototype.renderFixType_ = function(fix_type) {
  * Handles GPS_RAW_INT mavlink messages.
  * @private
  */
-GCSDjimMolenkamp.GpsButtonView.prototype.onGPS_ = function() {
+MineGCS.GpsButtonView.prototype.onGPS_ = function() {
   var fix_type = this.gps.get('fix_type');
   this.renderFixType_(fix_type);
 };

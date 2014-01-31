@@ -1,4 +1,4 @@
-goog.provide('GCSDjimMolenkamp.util');
+goog.provide('MineGCS.util');
 
 goog.require('goog.object');
 
@@ -7,14 +7,14 @@ goog.require('goog.object');
  * Contains static methods for utility functions on heartbeat mavlink
  * messages.
  */
-GCSDjimMolenkamp.util.heartbeat = {};
+MineGCS.util.heartbeat = {};
 
 
 /**
  * Bitfields for base_mode.
  * @enum {number}
  */
-GCSDjimMolenkamp.util.MavModeFlag = {
+MineGCS.util.MavModeFlag = {
   CUSTOM_MODE_ENABLED: 1,
   TEST_ENABLED: 2,
   AUTO_ENABLED: 4,
@@ -31,7 +31,7 @@ GCSDjimMolenkamp.util.MavModeFlag = {
  * @enum {number}
  */
 
-GCSDjimMolenkamp.util.MavType = {
+MineGCS.util.MavType = {
   FIXED_WING: 1,
   QUADROTOR: 2
 };
@@ -41,7 +41,7 @@ GCSDjimMolenkamp.util.MavType = {
  * ArduPlane flight modes.
  * @type {Object.<number, string>}
  */
-GCSDjimMolenkamp.util.ArduPlaneFlightModes = {
+MineGCS.util.ArduPlaneFlightModes = {
   0: 'MANUAL',
   1: 'CIRCLE',
   2: 'STABILIZE',
@@ -62,7 +62,7 @@ GCSDjimMolenkamp.util.ArduPlaneFlightModes = {
  * ArduCopter flight modes
  * @type {Object.<number, string>}
  */
-GCSDjimMolenkamp.util.ArduCopterFlightModes = {
+MineGCS.util.ArduCopterFlightModes = {
   0: 'STABILIZE',
   1: 'ACRO',
   2: 'ALT_HOLD',
@@ -81,16 +81,16 @@ GCSDjimMolenkamp.util.ArduCopterFlightModes = {
 /**
  * Returns the vehicle type name.
  *
- * @param {GCSDjimMolenkamp.MavlinkMessage} msg A heartbeat message.
+ * @param {MineGCS.MavlinkMessage} msg A heartbeat message.
  * @return {string} The type of vehicle: "ArduCopter", "ArduPlane" or
  *     "unknown".
  *
  */
-GCSDjimMolenkamp.util.heartbeat.mavtype = function(msg) {
+MineGCS.util.heartbeat.mavtype = function(msg) {
   var type = msg.get('type');
-  if (type == GCSDjimMolenkamp.util.MavType.QUADROTOR)
+  if (type == MineGCS.util.MavType.QUADROTOR)
     return 'ArduCopter';
-  if (type == GCSDjimMolenkamp.util.MavType.FIXED_WING)
+  if (type == MineGCS.util.MavType.FIXED_WING)
     return 'ArduPlane';
   return 'unknown';
 };
@@ -98,10 +98,10 @@ GCSDjimMolenkamp.util.heartbeat.mavtype = function(msg) {
 
 /**
  * Returns the name of the vehicle flight mode.
- * @param {GCSDjimMolenkamp.MavlinkMessage} msg A heartbeat message.
+ * @param {MineGCS.MavlinkMessage} msg A heartbeat message.
  * @return {string} The name of the flight mode.
  */
-GCSDjimMolenkamp.util.heartbeat.modestring = function(msg) {
+MineGCS.util.heartbeat.modestring = function(msg) {
   var base_mode = msg.get('base_mode');
   var type = msg.get('type');
   var custom_mode = msg.get('custom_mode');
@@ -112,17 +112,17 @@ GCSDjimMolenkamp.util.heartbeat.modestring = function(msg) {
 /** 
  * Removed from below if statement to get function
  * recognition back in APM3.1
- * type == GCSDjimMolenkamp.util.MavType.QUADROTOR && 
+ * type == MineGCS.util.MavType.QUADROTOR && 
  */
-  if (!base_mode & GCSDjimMolenkamp.util.MavModeFlag.CUSTOM_MODE_ENABLED) {
+  if (!base_mode & MineGCS.util.MavModeFlag.CUSTOM_MODE_ENABLED) {
     return ('BaseMode(' + base_mode + ')');
-  } else if (goog.object.containsKey(GCSDjimMolenkamp.util.ArduCopterFlightModes,
+  } else if (goog.object.containsKey(MineGCS.util.ArduCopterFlightModes,
                                      custom_mode)) {
-    return GCSDjimMolenkamp.util.ArduCopterFlightModes[custom_mode];
-  } else if (type == GCSDjimMolenkamp.util.MavType.FIXED_WING &&
-             goog.object.containsKey(GCSDjimMolenkamp.util.ArduPlaneFlightModes,
+    return MineGCS.util.ArduCopterFlightModes[custom_mode];
+  } else if (type == MineGCS.util.MavType.FIXED_WING &&
+             goog.object.containsKey(MineGCS.util.ArduPlaneFlightModes,
                                      custom_mode)) {
-    return GCSDjimMolenkamp.util.ArduPlaneFlightModes[custom_mode];
+    return MineGCS.util.ArduPlaneFlightModes[custom_mode];
   }
   return ('CustomMode(' + custom_mode + ')');
 };
@@ -131,15 +131,15 @@ GCSDjimMolenkamp.util.heartbeat.modestring = function(msg) {
 /**
  * Checks whether the vehicle is armed.
  *
- * @param {GCSDjimMolenkamp.MavlinkMessage} msg A heartbeat message.
+ * @param {MineGCS.MavlinkMessage} msg A heartbeat message.
  * @return {?boolean} True if the vehicle is armed.
  */
-GCSDjimMolenkamp.util.heartbeat.armed = function(msg) {
+MineGCS.util.heartbeat.armed = function(msg) {
   var base_mode = msg.get('base_mode');
   if (base_mode === null) {
     return null;
   }
-  if (base_mode & GCSDjimMolenkamp.util.MavModeFlag.SAFETY_ARMED) {
+  if (base_mode & MineGCS.util.MavModeFlag.SAFETY_ARMED) {
     return true;
   }
   return false;

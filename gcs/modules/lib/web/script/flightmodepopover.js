@@ -1,35 +1,35 @@
 
-goog.provide('GCSDjimMolenkamp.FlightModePopoverViewDelegate');
+goog.provide('MineGCS.FlightModePopoverViewDelegate');
 
 /**
  * Flight mode popover Backbone view.
- * @param {{el: jQuery, modeModel: GCSDjimMolenkamp.FlightModeModel, commandModel:
- *     GCSDjimMolenkamp.CommandLongModel}} properties View properties.
+ * @param {{el: jQuery, modeModel: MineGCS.FlightModeModel, commandModel:
+ *     MineGCS.CommandLongModel}} properties View properties.
  * @constructor
  * @extends {Backbone.View}
  */
-GCSDjimMolenkamp.FlightModePopoverViewDelegate = function(properties) {
+MineGCS.FlightModePopoverViewDelegate = function(properties) {
   this.popoverTitle = 'Flight Commands';
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.FlightModePopoverViewDelegate , Backbone.View);
+goog.inherits(MineGCS.FlightModePopoverViewDelegate , Backbone.View);
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.FlightModePopoverViewDelegate.prototype.initialize = function() {
+MineGCS.FlightModePopoverViewDelegate.prototype.initialize = function() {
   this.modeModel = this.options['modeModel'];
   this.commandModel = this.options['commandModel'];
 };
 
-GCSDjimMolenkamp.FlightModePopoverViewDelegate.prototype.popoverCreated = function(el) {
+MineGCS.FlightModePopoverViewDelegate.prototype.popoverCreated = function(el) {
   this.$el = el;
   this.$el.find('.popover-title').text(this.popoverTitle);
   this.setupPopover();
 };
 
-GCSDjimMolenkamp.FlightModePopoverViewDelegate.prototype.popoverDestroyed = function() {
+MineGCS.FlightModePopoverViewDelegate.prototype.popoverDestroyed = function() {
   /* this.$el = null; */
 /*   this.cleanupSubview('takeoffButtonView'); */
   this.cleanupSubview('armingButtonView');
@@ -38,7 +38,7 @@ GCSDjimMolenkamp.FlightModePopoverViewDelegate.prototype.popoverDestroyed = func
   this.cleanupSubview('landButtonView'); */
 };
 
-GCSDjimMolenkamp.FlightModePopoverViewDelegate.prototype.setupPopover = function() {
+MineGCS.FlightModePopoverViewDelegate.prototype.setupPopover = function() {
   var takeoff =
       '<a class="btn btn-large" id="flightmode-btn-takeoff" href="#">Take Off</a>';
   var loiter =
@@ -52,37 +52,37 @@ GCSDjimMolenkamp.FlightModePopoverViewDelegate.prototype.setupPopover = function
 
   this.$el.find('.popover-content').html(arm); /* + '<br />' + takeoff + loiter + rtl + land); */
 
-  this.armingButtonView = new GCSDjimMolenkamp.ArmingButtonView({
+  this.armingButtonView = new MineGCS.ArmingButtonView({
     'el': $('#flightmode-btn-arm'),
     'model': this.modeModel
   });
 
-  this.takeoffButtonView = new GCSDjimMolenkamp.CommandButtonView({
+  this.takeoffButtonView = new MineGCS.CommandButtonView({
     'el': $('#flightmode-btn-takeoff'),
     'model': this.commandModel,
     'command': 'NAV_TAKEOFF'
   });
   
-  this.loiterButtonView = new GCSDjimMolenkamp.CommandButtonView({
+  this.loiterButtonView = new MineGCS.CommandButtonView({
     'el': $('#flightmode-btn-loiter'),
     'model': this.commandModel,
     'command': 'NAV_LOITER_UNLIM'
   });
 
-  this.rtlButtonView = new GCSDjimMolenkamp.CommandButtonView({
+  this.rtlButtonView = new MineGCS.CommandButtonView({
     'el': $('#flightmode-btn-rtl'),
     'model': this.commandModel,
     'command': 'NAV_RETURN_TO_LAUNCH'
   });
 
-  this.landButtonView = new GCSDjimMolenkamp.CommandButtonView({
+  this.landButtonView = new MineGCS.CommandButtonView({
     'el': $('#flightmode-btn-land'),
     'model': this.commandModel,
     'command': 'NAV_LAND'
   });
 };
 
-GCSDjimMolenkamp.FlightModePopoverViewDelegate.prototype.cleanupSubview = function (subviewname) {
+MineGCS.FlightModePopoverViewDelegate.prototype.cleanupSubview = function (subviewname) {
   if (this[subviewname]) {
     this[subviewname].remove();
     this[subviewname] = null;

@@ -1,6 +1,6 @@
-goog.provide('GCSDjimMolenkamp.ModeStringView');
+goog.provide('MineGCS.ModeStringView');
 
-goog.require('GCSDjimMolenkamp.util');
+goog.require('MineGCS.util');
 
 
 
@@ -10,17 +10,17 @@ goog.require('GCSDjimMolenkamp.util');
  * @constructor
  * @extends {Backbone.View}
  */
-GCSDjimMolenkamp.ModeStringView = function(properties) {
+MineGCS.ModeStringView = function(properties) {
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.ModeStringView, Backbone.View);
+goog.inherits(MineGCS.ModeStringView, Backbone.View);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.ModeStringView.prototype.initialize = function() {
+MineGCS.ModeStringView.prototype.initialize = function() {
   var mavlinkSrc = this.options['mavlinkSrc'];
   this.$el = this.options['el'];
   this.heartbeat = mavlinkSrc.subscribe('HEARTBEAT',
@@ -31,9 +31,9 @@ GCSDjimMolenkamp.ModeStringView.prototype.initialize = function() {
 /**
  * Handles HEARTBEAT messages.
  */
-GCSDjimMolenkamp.ModeStringView.prototype.onHeartbeat = function() {
-  var modestring = GCSDjimMolenkamp.util.heartbeat.modestring(this.heartbeat);
-  var armed = GCSDjimMolenkamp.util.heartbeat.armed(this.heartbeat);
+MineGCS.ModeStringView.prototype.onHeartbeat = function() {
+  var modestring = MineGCS.util.heartbeat.modestring(this.heartbeat);
+  var armed = MineGCS.util.heartbeat.armed(this.heartbeat);
   if (modestring) {
     if (armed) {
       modestring += ' <span class="ok">ARMED</span>';

@@ -1,8 +1,8 @@
-goog.provide('GCSDjimMolenkamp.CommandLongModel');
-goog.provide('GCSDjimMolenkamp.FlightModeButtonView');
-goog.provide('GCSDjimMolenkamp.FlightModeModel');
+goog.provide('MineGCS.CommandLongModel');
+goog.provide('MineGCS.FlightModeButtonView');
+goog.provide('MineGCS.FlightModeModel');
 
-goog.require('GCSDjimMolenkamp.util');
+goog.require('MineGCS.util');
 
 goog.require('goog.json');
 
@@ -14,17 +14,17 @@ goog.require('goog.json');
  * @extends {Backbone.Model}
  * @constructor
  */
-GCSDjimMolenkamp.FlightModeModel = function(properties) {
+MineGCS.FlightModeModel = function(properties) {
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.FlightModeModel, Backbone.Model);
+goog.inherits(MineGCS.FlightModeModel, Backbone.Model);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.FlightModeModel.prototype.defaults = function() {
+MineGCS.FlightModeModel.prototype.defaults = function() {
   return {
     'armed': false,
     'arming': false,
@@ -38,7 +38,7 @@ GCSDjimMolenkamp.FlightModeModel.prototype.defaults = function() {
  * @override
  * @export
  */
-GCSDjimMolenkamp.FlightModeModel.prototype.initialize = function() {
+MineGCS.FlightModeModel.prototype.initialize = function() {
   var mavlinkSrc = this.get('mavlinkSrc');
   this.heartbeat = mavlinkSrc.subscribe('HEARTBEAT',
                                         this.onHeartbeat, this);
@@ -51,9 +51,9 @@ GCSDjimMolenkamp.FlightModeModel.prototype.initialize = function() {
 /**
  * Handles HEARTBEAT mavlink messages.
  */
-GCSDjimMolenkamp.FlightModeModel.prototype.onHeartbeat = function() {
-  var modestring = GCSDjimMolenkamp.util.heartbeat.modestring(this.heartbeat);
-  var armed = GCSDjimMolenkamp.util.heartbeat.armed(this.heartbeat);
+MineGCS.FlightModeModel.prototype.onHeartbeat = function() {
+  var modestring = MineGCS.util.heartbeat.modestring(this.heartbeat);
+  var armed = MineGCS.util.heartbeat.armed(this.heartbeat);
   this.set({ 'armed': armed, 'modestring': modestring });
 };
 
@@ -61,7 +61,7 @@ GCSDjimMolenkamp.FlightModeModel.prototype.onHeartbeat = function() {
 /**
  * Handles changes to the FlightModeModel.
  */
-GCSDjimMolenkamp.FlightModeModel.prototype.onChangeArmed = function() {
+MineGCS.FlightModeModel.prototype.onChangeArmed = function() {
   if (this.get('armed')) {
     if (this.get('arming')) {
       this.set('arming', false);
@@ -77,7 +77,7 @@ GCSDjimMolenkamp.FlightModeModel.prototype.onChangeArmed = function() {
 /**
  * Requests that motors be armed.
  */
-GCSDjimMolenkamp.FlightModeModel.prototype.requestArm = function() {
+MineGCS.FlightModeModel.prototype.requestArm = function() {
   this.postArmRequest_(true);
   this.set('arming', true);
 };
@@ -86,7 +86,7 @@ GCSDjimMolenkamp.FlightModeModel.prototype.requestArm = function() {
 /**
  * Requests that motors be disarmed.
  */
-GCSDjimMolenkamp.FlightModeModel.prototype.requestDisarm = function() {
+MineGCS.FlightModeModel.prototype.requestDisarm = function() {
   this.postArmRequest_(false);
   this.set('disarming', true);
 };
@@ -97,7 +97,7 @@ GCSDjimMolenkamp.FlightModeModel.prototype.requestDisarm = function() {
  * @param {boolean} armed Whether to arm the motors.
  * @private
  */
-GCSDjimMolenkamp.FlightModeModel.prototype.postArmRequest_ = function(armed) {
+MineGCS.FlightModeModel.prototype.postArmRequest_ = function(armed) {
   var setting;
   if (armed) {
     setting = 'ARM';
@@ -118,21 +118,21 @@ GCSDjimMolenkamp.FlightModeModel.prototype.postArmRequest_ = function(armed) {
 
 /**
  * Sends COMMAND_LONG mavlink message.
- * @param {{mavlinkSrc: GCSDjimMolenkamp.MavlinkAPI}} properties Model properties.
+ * @param {{mavlinkSrc: MineGCS.MavlinkAPI}} properties Model properties.
  * @constructor
  * @extends {Backbone.Model}
  */
-GCSDjimMolenkamp.CommandLongModel = function(properties) {
+MineGCS.CommandLongModel = function(properties) {
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.CommandLongModel, Backbone.Model);
+goog.inherits(MineGCS.CommandLongModel, Backbone.Model);
 
 
 /**
  * Sends a command to the server.
  * @param {string} command The command to send.
  */
-GCSDjimMolenkamp.CommandLongModel.prototype.post = function(command) {
+MineGCS.CommandLongModel.prototype.post = function(command) {
   if (typeof command == 'string') {
     $.ajax({
       type: 'POST',
@@ -155,17 +155,17 @@ GCSDjimMolenkamp.CommandLongModel.prototype.post = function(command) {
  * @param {{el: jQuery, model: Backbone.Model}} properties View properties.
  * @extends {Backbone.View}
  */
-GCSDjimMolenkamp.ArmingButtonView = function(properties) {
+MineGCS.ArmingButtonView = function(properties) {
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.ArmingButtonView, Backbone.View);
+goog.inherits(MineGCS.ArmingButtonView, Backbone.View);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.ArmingButtonView.prototype.initialize = function() {
+MineGCS.ArmingButtonView.prototype.initialize = function() {
   this.model.on('change:armed change:arming change:disarming',
                 this.onChange_, this);
   this.$el.click(goog.bind(this.onClick_, this));
@@ -177,7 +177,7 @@ GCSDjimMolenkamp.ArmingButtonView.prototype.initialize = function() {
  * Handles button clicks to arm/disarm the motors.
  * @private
  */
-GCSDjimMolenkamp.ArmingButtonView.prototype.onClick_ = function() {
+MineGCS.ArmingButtonView.prototype.onClick_ = function() {
   if (this.model.get('armed')) {
     this.model.requestDisarm();
   } else {
@@ -190,7 +190,7 @@ GCSDjimMolenkamp.ArmingButtonView.prototype.onClick_ = function() {
  * Handles changes in the model.
  * @private
  */
-GCSDjimMolenkamp.ArmingButtonView.prototype.onChange_ = function() {
+MineGCS.ArmingButtonView.prototype.onChange_ = function() {
   this.$el.removeClass('btn-success btn-warning');
   if (this.model.get('armed')) {
     if (this.model.get('disarming')) {
@@ -214,22 +214,22 @@ GCSDjimMolenkamp.ArmingButtonView.prototype.onChange_ = function() {
 
 
 /**
- * @param {{el: jQuery, model: GCSDjimMolenkamp.CommandLongModel, command: string}}
+ * @param {{el: jQuery, model: MineGCS.CommandLongModel, command: string}}
  *     properties The view properties.
  * @constructor
  * @extends {Backbone.View}
  */
-GCSDjimMolenkamp.CommandButtonView = function(properties) {
+MineGCS.CommandButtonView = function(properties) {
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.CommandButtonView, Backbone.View);
+goog.inherits(MineGCS.CommandButtonView, Backbone.View);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.CommandButtonView.prototype.initialize = function() {
+MineGCS.CommandButtonView.prototype.initialize = function() {
   this.command = this.options['command'];
   this.$el.click(goog.bind(this.onClick_, this));
 };
@@ -239,7 +239,7 @@ GCSDjimMolenkamp.CommandButtonView.prototype.initialize = function() {
  * Handles button clicks.
  * @private
  */
-GCSDjimMolenkamp.CommandButtonView.prototype.onClick_ = function() {
+MineGCS.CommandButtonView.prototype.onClick_ = function() {
   this.model.post(this.command);
 };
 
@@ -247,22 +247,22 @@ GCSDjimMolenkamp.CommandButtonView.prototype.onClick_ = function() {
 
 /**
  * Flight mode button Backbone view.
- * @param {{el: jQuery, modeModel: GCSDjimMolenkamp.FlightModeModel, commandModel:
- *     GCSDjimMolenkamp.CommandLongModel}} properties View properties.
+ * @param {{el: jQuery, modeModel: MineGCS.FlightModeModel, commandModel:
+ *     MineGCS.CommandLongModel}} properties View properties.
  * @constructor
  * @extends {Backbone.View}
  */
-GCSDjimMolenkamp.FlightModeButtonView = function(properties) {
+MineGCS.FlightModeButtonView = function(properties) {
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.FlightModeButtonView, Backbone.View);
+goog.inherits(MineGCS.FlightModeButtonView, Backbone.View);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.FlightModeButtonView.prototype.initialize = function() {
+MineGCS.FlightModeButtonView.prototype.initialize = function() {
   this.modeModel = this.options['modeModel'];
   this.$el = this.options['el'];
   this.modeModel.on('change', this.onChange_, this);
@@ -273,7 +273,7 @@ GCSDjimMolenkamp.FlightModeButtonView.prototype.initialize = function() {
  * Handles changes to the FlightModeModel.
  * @private
  */
-GCSDjimMolenkamp.FlightModeButtonView.prototype.onChange_ = function() {
+MineGCS.FlightModeButtonView.prototype.onChange_ = function() {
   this.$el.removeClass('btn-success btn-warning');
   if (this.modeModel.get('armed')) {
     this.$el.addClass('btn-success');

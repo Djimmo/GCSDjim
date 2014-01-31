@@ -1,26 +1,24 @@
-Counters: Slave:0 MasterIn:[66886] FGearOut:0 FGearIn:0 MasterOut:1079 
-MAV Errors: 9
+Counters: Slave:0 MasterIn:[192468] FGearOut:0 FGearIn:0 MasterOut:3752 
+MAV Errors: 90
 None
-4018: AHRS {omegaIx : 0.0040198857896, omegaIy : 0.00626512384042, omegaIz : -0.000304555258481, accel_weight : 1.0, renorm_val : 0.0, error_rp : 0.000621330051217, error_yaw : 0.0032564077992}
-4011: ATTITUDE {time_boot_ms : 4534273, roll : 0.0640240684152, pitch : 0.0626426711679, yaw : 1.33379507065, rollspeed : -0.00365160312504, pitchspeed : -0.00677253305912, yawspeed : -0.000549402087927}
-32: BAD_DATA {data : ‹, reason : Bad prefix}
-4: COMMAND_ACK {command : 17, result : 0}
-4003: GLOBAL_POSITION_INT {time_boot_ms : 4534392, lat : -368359050, lon : -730324382, alt : 105090, relative_alt : 10510, vx : -51, vy : -36, vz : 68, hdg : 21442}
-4000: GPS_RAW_INT {time_usec : 4533174000, fix_type : 3, lat : -368358836, lon : -730324207, alt : 104110, eph : 341, epv : 65535, vel : 86, cog : 21422, satellites_visible : 5}
-1064: HEARTBEAT {type : 2, autopilot : 3, base_mode : 89, custom_mode : 4, system_status : 5, mavlink_version : 3}
-4018: HWSTATUS {Vcc : 5051, I2Cerr : 0}
-4010: MEMINFO {brkval : 7172, freemem : 756}
-14: MISSION_ACK {target_system : 255, target_component : 0, type : 0}
-4010: MISSION_CURRENT {seq : 1}
-4000: NAV_CONTROLLER_OUTPUT {nav_roll : 3.6400001049, nav_pitch : 3.55999994278, nav_bearing : 134, target_bearing : 134, wp_dist : 45, alt_error : 0.0, aspd_error : 0.0, xtrack_error : 0.0}
-521: PARAM_VALUE {param_id : RCMAP_YAW, param_value : 4.0, param_type : 2, param_count : 289, param_index : 288}
-1079: RADIO {rssi : 45, remrssi : 37, txbuf : 100, noise : 20, remnoise : 22, rxerrors : 38, fixed : 318}
-4019: RAW_IMU {time_usec : 239516651, xacc : 56, yacc : -16, zacc : -1004, xgyro : -4, ygyro : -6, zgyro : 0, xmag : 56, ymag : -145, zmag : -70}
-4011: RC_CHANNELS_RAW {time_boot_ms : 4534532, port : 0, chan1_raw : 1499, chan2_raw : 1499, chan3_raw : 900, chan4_raw : 1499, chan5_raw : 1554, chan6_raw : 1499, chan7_raw : 1499, chan8_raw : 1499, rssi : 0}
-4018: SCALED_PRESSURE {time_boot_ms : 4534484, press_abs : 1016.67352295, press_diff : -1.23539054394, temperature : 3157}
-4012: SENSOR_OFFSETS {mag_ofs_x : -91, mag_ofs_y : 9, mag_ofs_z : 172, mag_declination : 0.110246628523, raw_press : 101667, raw_temp : 3157, gyro_cal_x : -7.31650725356e-05, gyro_cal_y : -0.0602732971311, gyro_cal_z : 0.0069347191602, accel_cal_x : -0.0109848193824, accel_cal_y : 0.169673025608, accel_cal_z : -0.159354969859}
-4006: SERVO_OUTPUT_RAW {time_usec : 239547657, port : 0, servo1_raw : 1059, servo2_raw : 1059, servo3_raw : 1059, servo4_raw : 1059, servo5_raw : 0, servo6_raw : 0, servo7_raw : 0, servo8_raw : 0}
-6: STATUSTEXT {severity : 1, text : ArduCopter V3.1 (5c6503e2)}
-4012: SYSTEM_TIME {time_unix_usec : 1389302212541000, time_boot_ms : 4534293}
-4004: SYS_STATUS {onboard_control_sensors_present : 130095, onboard_control_sensors_enabled : 130095, onboard_control_sensors_health : 130095, load : 703, voltage_battery : 12567, current_battery : 0, battery_remaining : 98, drop_rate_comm : 0, errors_comm : 0, errors_count1 : 0, errors_count2 : 0, errors_count3 : 0, errors_count4 : 0}
-4014: VFR_HUD {airspeed : 0.800000011921, groundspeed : 0.800000011921, heading : 76, throttle : 0, alt : 10.5100002289, climb : 0.0}
+11581: AHRS {omegaIx : 0.000424067111453, omegaIy : 0.000266991730314, omegaIz : -4.8452799092e-05, accel_weight : 1.0, renorm_val : 0.0, error_rp : 0.000444164616056, error_yaw : 0.00381460413337}
+11591: ATTITUDE {time_boot_ms : 3266974, roll : 0.0110534029081, pitch : -0.00304642575793, yaw : 0.698521494865, rollspeed : -0.00235858140513, pitchspeed : -0.00211660563946, yawspeed : 0.000232801772654}
+90: BAD_DATA {data : š, reason : Bad prefix}
+11580: GLOBAL_POSITION_INT {time_boot_ms : 3266914, lat : 0, lon : 0, alt : 15910, relative_alt : 4270, vx : 0, vy : 0, vz : 0, hdg : 0}
+11583: GPS_RAW_INT {time_usec : 0, fix_type : 1, lat : -368355280, lon : -730318600, alt : 15910, eph : 9999, epv : 65535, vel : 0, cog : 0, satellites_visible : 0}
+3024: HEARTBEAT {type : 2, autopilot : 3, base_mode : 81, custom_mode : 0, system_status : 5, mavlink_version : 3}
+11573: HWSTATUS {Vcc : 5051, I2Cerr : 0}
+11585: MEMINFO {brkval : 7172, freemem : 840}
+11582: MISSION_CURRENT {seq : 1}
+11582: NAV_CONTROLLER_OUTPUT {nav_roll : 0.0, nav_pitch : 0.0, nav_bearing : 0, target_bearing : 0, wp_dist : 0, alt_error : 0.0, aspd_error : 0.0, xtrack_error : 0.0}
+288: PARAM_VALUE {param_id : RCMAP_YAW, param_value : 4.0, param_type : 2, param_count : 289, param_index : 288}
+3742: RADIO {rssi : 47, remrssi : 0, txbuf : 100, noise : 45, remnoise : 0, rxerrors : 11, fixed : 10}
+11585: RAW_IMU {time_usec : 3267035269, xacc : 21, yacc : -18, zacc : -998, xgyro : 0, ygyro : 0, zgyro : 0, xmag : 157, ymag : -105, zmag : -88}
+11586: RC_CHANNELS_RAW {time_boot_ms : 3266915, port : 0, chan1_raw : 1499, chan2_raw : 1499, chan3_raw : 900, chan4_raw : 1466, chan5_raw : 1170, chan6_raw : 1055, chan7_raw : 1499, chan8_raw : 1499, rssi : 0}
+11585: SCALED_PRESSURE {time_boot_ms : 3267035, press_abs : 1007.82000732, press_diff : -0.493437498808, temperature : 3276}
+11583: SENSOR_OFFSETS {mag_ofs_x : -86, mag_ofs_y : 16, mag_ofs_z : 151, mag_declination : 0.110246628523, raw_press : 100782, raw_temp : 3276, gyro_cal_x : -0.00721939420328, gyro_cal_y : -0.0697182118893, gyro_cal_z : 0.00774884503335, accel_cal_x : -0.0480743795633, accel_cal_y : 0.156541109085, accel_cal_z : -0.239780768752}
+11585: SERVO_OUTPUT_RAW {time_usec : 3266915254, port : 0, servo1_raw : 1059, servo2_raw : 1059, servo3_raw : 1059, servo4_raw : 1059, servo5_raw : 0, servo6_raw : 0, servo7_raw : 0, servo8_raw : 0}
+1: STATUSTEXT {severity : 1, text : ArduCopter V3.1 (5c6503e2)}
+11575: SYSTEM_TIME {time_unix_usec : 0, time_boot_ms : 3266875}
+11586: SYS_STATUS {onboard_control_sensors_present : 130095, onboard_control_sensors_enabled : 105519, onboard_control_sensors_health : 130095, load : 661, voltage_battery : 11265, current_battery : 0, battery_remaining : 99, drop_rate_comm : 0, errors_comm : 0, errors_count1 : 0, errors_count2 : 0, errors_count3 : 0, errors_count4 : 0}
+11581: VFR_HUD {airspeed : 0.0, groundspeed : 0.0, heading : 39, throttle : 0, alt : 4.26999998093, climb : -0.00999999977648}

@@ -1,14 +1,14 @@
-goog.provide('GCSDjimMolenkamp.AppRouter');
+goog.provide('MineGCS.AppRouter');
 
 
 
 /**
- * The GCSDjimMolenkamp router.
+ * The MineGCS router.
  * @param {Object} options The router options.
  * @constructor
  * @extends {Backbone.Router}
  */
-GCSDjimMolenkamp.AppRouter = function(options) {
+MineGCS.AppRouter = function(options) {
   this.pfdSettingsModel = options['pfdSettingsModel'];
   this.routes = {
     'overview': 'route_overview',
@@ -17,14 +17,14 @@ GCSDjimMolenkamp.AppRouter = function(options) {
   };
   goog.base(this, options);
 };
-goog.inherits(GCSDjimMolenkamp.AppRouter, Backbone.Router);
+goog.inherits(MineGCS.AppRouter, Backbone.Router);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.AppRouter.prototype.initialize = function(opt_options) {
+MineGCS.AppRouter.prototype.initialize = function(opt_options) {
   var navbar = {};
   _.each(this.routes, function(g, route) {
     var el = $('#navbar-' + route);
@@ -40,10 +40,10 @@ GCSDjimMolenkamp.AppRouter.prototype.initialize = function(opt_options) {
  * Show overview.
  * @export
  */
-GCSDjimMolenkamp.AppRouter.prototype.route_overview = function() {
+MineGCS.AppRouter.prototype.route_overview = function() {
   this.setnavbar('overview');
   this.pfdSettingsModel.set({
-    'size': GCSDjimMolenkamp.PFDSettingsModel.Size.HIDDEN
+    'size': MineGCS.PFDSettingsModel.Size.HIDDEN
   });
 };
 
@@ -52,10 +52,10 @@ GCSDjimMolenkamp.AppRouter.prototype.route_overview = function() {
  * Show PFD only.
  * @export
  */
-GCSDjimMolenkamp.AppRouter.prototype.route_fullpfd = function() {
+MineGCS.AppRouter.prototype.route_fullpfd = function() {
   this.setnavbar('fullpfd');
   this.pfdSettingsModel.set({
-    'size': GCSDjimMolenkamp.PFDSettingsModel.Size.FULLSCREEN
+    'size': MineGCS.PFDSettingsModel.Size.FULLSCREEN
   });
 };
 
@@ -64,10 +64,10 @@ GCSDjimMolenkamp.AppRouter.prototype.route_fullpfd = function() {
  * Show map only.
  * @export
  */
-GCSDjimMolenkamp.AppRouter.prototype.route_maponly = function() {
+MineGCS.AppRouter.prototype.route_maponly = function() {
   this.setnavbar('maponly');
   this.pfdSettingsModel.set({
-    'size': GCSDjimMolenkamp.PFDSettingsModel.Size.STANDARD
+    'size': MineGCS.PFDSettingsModel.Size.STANDARD
   });
 };
 
@@ -77,7 +77,7 @@ GCSDjimMolenkamp.AppRouter.prototype.route_maponly = function() {
  *
  * @param {string} route The new route.
  */
-GCSDjimMolenkamp.AppRouter.prototype.setnavbar = function(route) {
+MineGCS.AppRouter.prototype.setnavbar = function(route) {
   _.each(this.navbar, function(li) {
     li.removeClass('active');
   });

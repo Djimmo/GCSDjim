@@ -1,41 +1,39 @@
-goog.provide('GCSDjimMolenkamp.BatteryPopoverViewDelegate');
+goog.provide('MineGCS.BatteryPopoverViewDelegate');
 
 /**
  * Djim Molenkamp
- * Changed the functionality of this script to include more parameters
- * and using a filtered GPS position rather than raw data from the GPS
- * Adding more battery parameters
+ * Battery Status popover providing voltage and current information
  */
 
 /**
- * @param {{mavlinkSrc: GCSDjimMolenkamp.MavlinkAPI, el: jQuery}} properties View
+ * @param {{mavlinkSrc: MineGCS.MavlinkAPI, el: jQuery}} properties View
  *     properties.
  * @constructor
  * @extends {Backbone.View}
  */
-GCSDjimMolenkamp.BatteryPopoverViewDelegate = function(properties) {
+MineGCS.BatteryPopoverViewDelegate = function(properties) {
   this.popoverTitle = 'Battery Status';
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.BatteryPopoverViewDelegate , Backbone.View);
+goog.inherits(MineGCS.BatteryPopoverViewDelegate , Backbone.View);
 
-GCSDjimMolenkamp.BatteryPopoverViewDelegate.prototype.initialize = function() {
+MineGCS.BatteryPopoverViewDelegate.prototype.initialize = function() {
   var mavlink = this.options['mavlinkSrc'];
   this.battery = mavlink.subscribe('SYS_STATUS', this.render, this);
 
 };
 
-GCSDjimMolenkamp.BatteryPopoverViewDelegate.prototype.popoverCreated = function(el) {
+MineGCS.BatteryPopoverViewDelegate.prototype.popoverCreated = function(el) {
   this.$el = el;
   this.$el.find('.popover-title').text(this.popoverTitle);
   this.render();
 };
 
-GCSDjimMolenkamp.BatteryPopoverViewDelegate.prototype.popoverDestroyed = function() {
+MineGCS.BatteryPopoverViewDelegate.prototype.popoverDestroyed = function() {
   this.$el = null;
 };
 
-GCSDjimMolenkamp.BatteryPopoverViewDelegate.prototype.render = function() {
+MineGCS.BatteryPopoverViewDelegate.prototype.render = function() {
   if (this.$el) {
 	var voltage = this.battery.get('voltage_battery')/1000;
 	var current = this.battery.get('current_battery')/100;

@@ -1,40 +1,40 @@
-goog.provide('GCSDjimMolenkamp.AltSpeedPopoverViewDelegate');
+goog.provide('MineGCS.AltSpeedPopoverViewDelegate');
 
 /**
  * Djim Molenkamp
  * Changed the functionality of this script to include more parameters
- * and using a filtered GPS position rather than raw data from the GPS
+ * Displaying detailed Altitude and Speed information
  */
 
 /**
- * @param {{mavlinkSrc: GCSDjimMolenkamp.MavlinkAPI, el: jQuery}} properties View
+ * @param {{mavlinkSrc: MineGCS.MavlinkAPI, el: jQuery}} properties View
  *     properties.
  * @constructor
  * @extends {Backbone.View}
  */
-GCSDjimMolenkamp.AltSpeedPopoverViewDelegate = function(properties) {
+MineGCS.AltSpeedPopoverViewDelegate = function(properties) {
   this.popoverTitle = 'Vehicle Information';
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.AltSpeedPopoverViewDelegate , Backbone.View);
+goog.inherits(MineGCS.AltSpeedPopoverViewDelegate , Backbone.View);
 
-GCSDjimMolenkamp.AltSpeedPopoverViewDelegate.prototype.initialize = function() {
+MineGCS.AltSpeedPopoverViewDelegate.prototype.initialize = function() {
   var mavlink = this.options['mavlinkSrc'];
   this.vfrhud = mavlink.subscribe('VFR_HUD', this.render, this);
   this.attitude = mavlink.subscribe('ATTITUDE', this.render, this);
 };
 
-GCSDjimMolenkamp.AltSpeedPopoverViewDelegate.prototype.popoverCreated = function(el) {
+MineGCS.AltSpeedPopoverViewDelegate.prototype.popoverCreated = function(el) {
   this.$el = el;
   this.$el.find('.popover-title').text(this.popoverTitle);
   this.render();
 };
 
-GCSDjimMolenkamp.AltSpeedPopoverViewDelegate.prototype.popoverDestroyed = function() {
+MineGCS.AltSpeedPopoverViewDelegate.prototype.popoverDestroyed = function() {
   this.$el = null;
 };
 
-GCSDjimMolenkamp.AltSpeedPopoverViewDelegate.prototype.render = function() {
+MineGCS.AltSpeedPopoverViewDelegate.prototype.render = function() {
   if (this.$el) {
 	var gs = this.vfrhud.get('groundspeed');
 	var heading = this.vfrhud.get('heading');

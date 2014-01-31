@@ -1,4 +1,4 @@
-goog.provide('GCSDjimMolenkamp.GuideAltitudeView');
+goog.provide('MineGCS.GuideAltitudeView');
 
 
 
@@ -9,17 +9,17 @@ goog.provide('GCSDjimMolenkamp.GuideAltitudeView');
  * @constructor
  * @extends {Backbone.View}
  */
-GCSDjimMolenkamp.GuideAltitudeView = function(properties) {
+MineGCS.GuideAltitudeView = function(properties) {
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.GuideAltitudeView, Backbone.View);
+goog.inherits(MineGCS.GuideAltitudeView, Backbone.View);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.GuideAltitudeView.prototype.initialize = function() {
+MineGCS.GuideAltitudeView.prototype.initialize = function() {
   var self = this;
   this.input = this.options['input'];
   this.submit = this.options['submit'];
@@ -43,7 +43,7 @@ GCSDjimMolenkamp.GuideAltitudeView.prototype.initialize = function() {
  * @override
  * @export
  */
-GCSDjimMolenkamp.GuideAltitudeView.prototype.render = function() {
+MineGCS.GuideAltitudeView.prototype.render = function() {
   var mdl = this.model.toJSON();
   this.text.html(mdl['alt'].toString() + ' m');
   this.input.val(mdl['alt']);

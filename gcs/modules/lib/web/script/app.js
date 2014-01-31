@@ -1,38 +1,38 @@
-goog.provide('GCSDjimMolenkamp.App');
+goog.provide('MineGCS.App');
 
-goog.require('GCSDjimMolenkamp.AltSpeedView');						// Djim
-goog.require('GCSDjimMolenkamp.AltSpeedPopoverViewDelegate');		// Djim
-goog.require('GCSDjimMolenkamp.AppRouter');
-goog.require('GCSDjimMolenkamp.BatteryButton');
-goog.require('GCSDjimMolenkamp.BatteryPopoverViewDelegate');		// Djim
-goog.require('GCSDjimMolenkamp.CommStatusButtonView');
-goog.require('GCSDjimMolenkamp.CommStatusPopoverViewDelegate');
-goog.require('GCSDjimMolenkamp.CommStatusModel');
-goog.require('GCSDjimMolenkamp.CommandLongModel');
-goog.require('GCSDjimMolenkamp.DistanceView');						// Djim
-goog.require('GCSDjimMolenkamp.FlightModeButtonView');
-goog.require('GCSDjimMolenkamp.FlightModePopoverViewDelegate');
-goog.require('GCSDjimMolenkamp.FlightModeModel');
-goog.require('GCSDjimMolenkamp.GpsButtonView');
-goog.require('GCSDjimMolenkamp.GpsPopoverViewDelegate');
-goog.require('GCSDjimMolenkamp.GuideAltitudeView');
-goog.require('GCSDjimMolenkamp.GuideModel');
-goog.require('GCSDjimMolenkamp.LeafletDroneIconModel');
-goog.require('GCSDjimMolenkamp.LeafletPanControlView');
-goog.require('GCSDjimMolenkamp.LeafletPanModel');
-goog.require('GCSDjimMolenkamp.LeafletProviders');
-goog.require('GCSDjimMolenkamp.LeafletView');
-goog.require('GCSDjimMolenkamp.MavlinkAPI');
-goog.require('GCSDjimMolenkamp.ModeStringView');
-goog.require('GCSDjimMolenkamp.PFD');
-goog.require('GCSDjimMolenkamp.PFDSettingsModel');
-goog.require('GCSDjimMolenkamp.PFDView');
-goog.require('GCSDjimMolenkamp.PacketLossModel');
-goog.require('GCSDjimMolenkamp.PopoverView');
-goog.require('GCSDjimMolenkamp.RadioButtonPopoverView');
-goog.require('GCSDjimMolenkamp.SettingsView');
-goog.require('GCSDjimMolenkamp.StatustextView');
-goog.require('GCSDjimMolenkamp.VehicleLeafletPosition');
+goog.require('MineGCS.AltSpeedView');						// Djim
+goog.require('MineGCS.AltSpeedPopoverViewDelegate');		// Djim
+goog.require('MineGCS.AppRouter');
+goog.require('MineGCS.BatteryButton');						// Djim
+goog.require('MineGCS.BatteryPopoverViewDelegate');		    // Djim
+goog.require('MineGCS.CommStatusButtonView');
+goog.require('MineGCS.CommStatusPopoverViewDelegate');
+goog.require('MineGCS.CommStatusModel');
+goog.require('MineGCS.CommandLongModel');
+goog.require('MineGCS.DistanceView');						// Djim
+goog.require('MineGCS.FlightModeButtonView');
+goog.require('MineGCS.FlightModePopoverViewDelegate');
+goog.require('MineGCS.FlightModeModel');
+goog.require('MineGCS.GpsButtonView');
+goog.require('MineGCS.GpsPopoverViewDelegate');
+goog.require('MineGCS.GuideAltitudeView');
+goog.require('MineGCS.GuideModel');
+goog.require('MineGCS.LeafletDroneIconModel');
+goog.require('MineGCS.LeafletPanControlView');
+goog.require('MineGCS.LeafletPanModel');
+goog.require('MineGCS.LeafletProviders');
+goog.require('MineGCS.LeafletView');
+goog.require('MineGCS.MavlinkAPI');
+goog.require('MineGCS.ModeStringView');
+goog.require('MineGCS.PFD');
+goog.require('MineGCS.PFDSettingsModel');
+goog.require('MineGCS.PFDView');
+goog.require('MineGCS.PacketLossModel');
+goog.require('MineGCS.PopoverView');
+goog.require('MineGCS.RadioButtonPopoverView');
+goog.require('MineGCS.SettingsView');
+goog.require('MineGCS.StatustextView');
+goog.require('MineGCS.VehicleLeafletPosition');
 
 goog.require('goog.Uri');
 goog.require('goog.array');
@@ -46,23 +46,23 @@ goog.require('goog.net.jsloader');
 
 
 /**
- * GCSDjimMolenkamp App object.
+ * MineGCS App object.
  *
  * @constructor
  */
-GCSDjimMolenkamp.App = function() {
+MineGCS.App = function() {
 };
 
 
 /**
  * Initializes and starts the app.
  */
-GCSDjimMolenkamp.App.prototype.start = function() {
+MineGCS.App.prototype.start = function() {
   var c = new goog.debug.Console();
   c.setCapturing(true);
 
   var uri = new goog.Uri(window.location.href);
-  this.mavlinkAPI = new GCSDjimMolenkamp.MavlinkAPI({ 'url': '/mavlink/' });
+  this.mavlinkAPI = new MineGCS.MavlinkAPI({ 'url': '/mavlink/' });
   /* If we see "offline" query parameter in the URL, enable offline
    * mode. */
   if (goog.isDef(uri.getParameterValue('offline'))) {
@@ -92,8 +92,8 @@ GCSDjimMolenkamp.App.prototype.start = function() {
     }
   }
 
-  this.pfdSettingsModel = new GCSDjimMolenkamp.PFDSettingsModel();
-  this.pfdView = new GCSDjimMolenkamp.PFDView({
+  this.pfdSettingsModel = new MineGCS.PFDSettingsModel();
+  this.pfdView = new MineGCS.PFDView({
     'mavlinkSrc': this.mavlinkAPI,
     'settingsModel': this.pfdSettingsModel,
     'drawingid': 'pfdview',
@@ -101,30 +101,30 @@ GCSDjimMolenkamp.App.prototype.start = function() {
     'statel': $('#pfdstatus')
   });
 
-  this.guideModel = new GCSDjimMolenkamp.GuideModel({ 'mavlinkSrc': this.mavlinkAPI });
-  this.guideAltView = new GCSDjimMolenkamp.GuideAltitudeView({
+  this.guideModel = new MineGCS.GuideModel({ 'mavlinkSrc': this.mavlinkAPI });
+  this.guideAltView = new MineGCS.GuideAltitudeView({
     'model': this.guideModel,
     'input': $('#guidealt-input'),
     'submit': $('#guidealt-submit'),
     'text': $('#guidealt-text')
   });
 
-  this.leafletDroneIcon = new GCSDjimMolenkamp.LeafletDroneIconModel();
-  this.leafletProviders = new GCSDjimMolenkamp.LeafletProviders();
+  this.leafletDroneIcon = new MineGCS.LeafletDroneIconModel();
+  this.leafletProviders = new MineGCS.LeafletProviders();
 
-  this.vehicle = new GCSDjimMolenkamp.VehicleLeafletPosition({
+  this.vehicle = new MineGCS.VehicleLeafletPosition({
     'mavlinkSrc': this.mavlinkAPI
   });
 
-  this.panModel = new GCSDjimMolenkamp.LeafletPanModel({
+  this.panModel = new MineGCS.LeafletPanModel({
     'vehicle': this.vehicle
   });
-  this.panCtrl = new GCSDjimMolenkamp.LeafletPanControlView({
+  this.panCtrl = new MineGCS.LeafletPanControlView({
     'model': this.panModel,
     'button': $('#mapoverlay-btn-centermap'),
     'icon': $('#mapoverlay-icon-centermap')
   });
-  this.mapView = new GCSDjimMolenkamp.LeafletView({
+  this.mapView = new MineGCS.LeafletView({
     'vehicle': this.vehicle,
     'provider': this.leafletProviders,
     'vehicleIcon': this.leafletDroneIcon,
@@ -132,85 +132,85 @@ GCSDjimMolenkamp.App.prototype.start = function() {
     'panModel': this.panModel
   });
 
-  this.commStatusModel = new GCSDjimMolenkamp.CommStatusModel({
+  this.commStatusModel = new MineGCS.CommStatusModel({
     'mavlinkSrc': this.mavlinkAPI
   });
 
-  this.packetLossModel = new GCSDjimMolenkamp.PacketLossModel({
+  this.packetLossModel = new MineGCS.PacketLossModel({
     'mavlinkSrc': this.mavlinkAPI
   });
 
-  this.commStatusButtonView = new GCSDjimMolenkamp.CommStatusButtonView({
+  this.commStatusButtonView = new MineGCS.CommStatusButtonView({
     'commStatusModel': this.commStatusModel,
     'packetLossModel': this.packetLossModel,
     'el': $('#navbar-btn-link')
   });
 
-  this.gpsButtonView = new GCSDjimMolenkamp.GpsButtonView({
+  this.gpsButtonView = new MineGCS.GpsButtonView({
     'mavlinkSrc': this.mavlinkAPI,
     'el': $('#navbar-btn-gps')
   });
   
-  this.altSpeedView = new GCSDjimMolenkamp.AltSpeedView({		// Djim
+  this.altSpeedView = new MineGCS.AltSpeedView({		// Djim
     'mavlinkSrc': this.mavlinkAPI,
     'el': $('#navbar-btn-altspeed')
   });
 
-  this.distanceView = new GCSDjimMolenkamp.DistanceView({		// Djim
+  this.distanceView = new MineGCS.DistanceView({		// Djim
     'mavlinkSrc': this.mavlinkAPI,
     'el': $('#navbar-btn-distance')
   });
 
-  this.statustextView = new GCSDjimMolenkamp.StatustextView({
+  this.statustextView = new MineGCS.StatustextView({
     'mavlinkSrc': this.mavlinkAPI
   });
 
-  this.modeStringView = new GCSDjimMolenkamp.ModeStringView({
+  this.modeStringView = new MineGCS.ModeStringView({
     'mavlinkSrc': this.mavlinkAPI,
     'el': $('#pfd_modestringview')
   });
 
-  this.flightModeModel = new GCSDjimMolenkamp.FlightModeModel({
+  this.flightModeModel = new MineGCS.FlightModeModel({
     'mavlinkSrc': this.mavlinkAPI
   });
-  this.flightCommandModel = new GCSDjimMolenkamp.CommandLongModel({
+  this.flightCommandModel = new MineGCS.CommandLongModel({
     'mavlinkSrc': this.mavlinkAPI
   });
-  this.flightModeButtonView = new GCSDjimMolenkamp.FlightModeButtonView({
+  this.flightModeButtonView = new MineGCS.FlightModeButtonView({
     'el': $('#navbar-btn-mode'),
     'modeModel': this.flightModeModel
   });
   
-  this.batteryButton = new GCSDjimMolenkamp.BatteryButton({
+  this.batteryButton = new MineGCS.BatteryButton({
     'mavlinkSrc': this.mavlinkAPI,
     'el': $('#navbar-btn-battery')
   });
   
   /* Radio view controller */
-  this.statusButtons = new GCSDjimMolenkamp.RadioButtonPopoverView({
+  this.statusButtons = new MineGCS.RadioButtonPopoverView({
     popovers: [ { btn: this.gpsButtonView,
-                  delegate: new GCSDjimMolenkamp.GpsPopoverViewDelegate({
+                  delegate: new MineGCS.GpsPopoverViewDelegate({
                     'mavlinkSrc': this.mavlinkAPI
                     })
                 },
                 { btn: this.commStatusButtonView,
-                  delegate: new GCSDjimMolenkamp.CommStatusPopoverViewDelegate({
+                  delegate: new MineGCS.CommStatusPopoverViewDelegate({
                     'packetLossModel': this.packetLossModel
                     })
                 },
                 { btn: this.flightModeButtonView,
-                  delegate: new GCSDjimMolenkamp.FlightModePopoverViewDelegate({
+                  delegate: new MineGCS.FlightModePopoverViewDelegate({
                     'modeModel': this.flightModeModel,
                     'commandModel': this.flightCommandModel
                     })
                 },
 				{ btn: this.altSpeedView,								// Djim 
-                  delegate: new GCSDjimMolenkamp.AltSpeedPopoverViewDelegate({
+                  delegate: new MineGCS.AltSpeedPopoverViewDelegate({
                     'mavlinkSrc': this.mavlinkAPI
                     })
                 },
 				{ btn: this.batteryButton,								// Djim 
-                  delegate: new GCSDjimMolenkamp.BatteryPopoverViewDelegate({
+                  delegate: new MineGCS.BatteryPopoverViewDelegate({
                     'mavlinkSrc': this.mavlinkAPI
                     })
                 },
@@ -219,13 +219,13 @@ GCSDjimMolenkamp.App.prototype.start = function() {
 
 
   
-/*   this.primaryInfo = new GCSDjimMolenkamp.PrimaryInfo({
+/*   this.primaryInfo = new MineGCS.PrimaryInfo({
     'mavlinkSrc': this.mavlinkAPI,
     'el': $('#navbar-btn-primaryinfo')
   }); */
 
 
-  this.settingsView = new GCSDjimMolenkamp.SettingsView({
+  this.settingsView = new MineGCS.SettingsView({
     /* Map settings: */
     'map': this.mapView.map,
     'mapView': this.mapView,
@@ -246,7 +246,7 @@ GCSDjimMolenkamp.App.prototype.start = function() {
     'pfdPositionDown': $('#settings-pfdpos-down')
   });
 
-  this.router = new GCSDjimMolenkamp.AppRouter({
+  this.router = new MineGCS.AppRouter({
     'pfdSettingsModel': this.pfdSettingsModel
   });
 
@@ -282,5 +282,5 @@ GCSDjimMolenkamp.App.prototype.start = function() {
 
 
 // Ensures the symbol will be visible after compiler renaming.
-goog.exportSymbol('GCSDjimMolenkamp.App', GCSDjimMolenkamp.App);
-goog.exportSymbol('GCSDjimMolenkamp.App.prototype.start', GCSDjimMolenkamp.App.prototype.start);
+goog.exportSymbol('MineGCS.App', MineGCS.App);
+goog.exportSymbol('MineGCS.App.prototype.start', MineGCS.App.prototype.start);

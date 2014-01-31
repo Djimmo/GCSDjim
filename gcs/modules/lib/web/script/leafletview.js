@@ -1,4 +1,4 @@
-goog.provide('GCSDjimMolenkamp.LeafletView');
+goog.provide('MineGCS.LeafletView');
 
 var markerIcon = L.Icon.extend({
   'options': {
@@ -29,10 +29,10 @@ L.Transition = null;
  * @constructor
  * @extends {L.Map}
  */
-GCSDjimMolenkamp.UnanimatedMap = function(id, options) {
+MineGCS.UnanimatedMap = function(id, options) {
   goog.base(this, id, options);
 };
-goog.inherits(GCSDjimMolenkamp.UnanimatedMap, L.Map);
+goog.inherits(MineGCS.UnanimatedMap, L.Map);
 
 
 /**
@@ -40,7 +40,7 @@ goog.inherits(GCSDjimMolenkamp.UnanimatedMap, L.Map);
  * @param {L.LatLng} center The new center of the map.
  * @override
  */
-GCSDjimMolenkamp.UnanimatedMap.prototype.panTo = function(center) {
+MineGCS.UnanimatedMap.prototype.panTo = function(center) {
   var offset = this._getNewTopLeftPoint(center).subtract(
       this._getTopLeftPoint());
   this.fire('movestart');
@@ -56,17 +56,17 @@ GCSDjimMolenkamp.UnanimatedMap.prototype.panTo = function(center) {
  * @constructor
  * @extends {Backbone.View}
  */
-GCSDjimMolenkamp.LeafletView = function(properties) {
+MineGCS.LeafletView = function(properties) {
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.LeafletView, Backbone.View);
+goog.inherits(MineGCS.LeafletView, Backbone.View);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.LeafletView.prototype.initialize = function() {
+MineGCS.LeafletView.prototype.initialize = function() {
   this.vehicleModel = this.options['vehicle'];
   this.vehicleIconModel = this.options['vehicleIcon'];
   this.providerModel = this.options['provider'];
@@ -79,7 +79,7 @@ GCSDjimMolenkamp.LeafletView.prototype.initialize = function() {
 
   this.touchzoomable = L.Browser.touch && !L.Browser.android23;
 
-  this.map = new GCSDjimMolenkamp.UnanimatedMap('map', {
+  this.map = new MineGCS.UnanimatedMap('map', {
     'layers': [this.tileLayer],
     'zoomControl': false,
     'doubleClickZoom': false,
@@ -116,7 +116,7 @@ GCSDjimMolenkamp.LeafletView.prototype.initialize = function() {
  * Handles double clicks.
  * @param {{latlng: {lat: number, lng: number}}} e The double click event.
  */
-GCSDjimMolenkamp.LeafletView.prototype.doubleClickHandler = function(e) {
+MineGCS.LeafletView.prototype.doubleClickHandler = function(e) {
   this.guideModel.setTarget({ 'lat': e.latlng.lat, 'lon': e.latlng.lng });
 };
 
@@ -124,7 +124,7 @@ GCSDjimMolenkamp.LeafletView.prototype.doubleClickHandler = function(e) {
 /**
  * Called when the user selects a new map provider.
  */
-GCSDjimMolenkamp.LeafletView.prototype.providerChange = function() {
+MineGCS.LeafletView.prototype.providerChange = function() {
   this.map.removeLayer(this.tileLayer);
   this.tileLayer = this.providerModel.getProvider();
   this.map.addLayer(this.tileLayer);
@@ -134,7 +134,7 @@ GCSDjimMolenkamp.LeafletView.prototype.providerChange = function() {
 /**
  * Handles pan model position changes.
  */
-GCSDjimMolenkamp.LeafletView.prototype.panModelChange = function() {
+MineGCS.LeafletView.prototype.panModelChange = function() {
   var center = this.panModel.get('center');
   if (center === undefined) return;
   if (this.initializedcenter) {
@@ -149,7 +149,7 @@ GCSDjimMolenkamp.LeafletView.prototype.panModelChange = function() {
 /**
  * Handles pan model tracking mode changes.
  */
-GCSDjimMolenkamp.LeafletView.prototype.panTrackingChange = function() {
+MineGCS.LeafletView.prototype.panTrackingChange = function() {
   var tracking = this.panModel.get('tracking');
   if (tracking === undefined) return;
   if (tracking) {
@@ -174,7 +174,7 @@ GCSDjimMolenkamp.LeafletView.prototype.panTrackingChange = function() {
 /**
  * Called when the vehicle's position or heading changes.
  */
-GCSDjimMolenkamp.LeafletView.prototype.updateVehicleMarker = function() {
+MineGCS.LeafletView.prototype.updateVehicleMarker = function() {
   if (!this.initializedcenter) return;
   var p = this.vehicleModel.get('position');
   var h = this.vehicleModel.get('heading');
@@ -197,7 +197,7 @@ GCSDjimMolenkamp.LeafletView.prototype.updateVehicleMarker = function() {
 /**
  * Called when the user selects a new vehicle icon.
  */
-GCSDjimMolenkamp.LeafletView.prototype.vehicleIconChange = function() {
+MineGCS.LeafletView.prototype.vehicleIconChange = function() {
   var p = this.vehicleModel.get('position');
   var h = this.vehicleModel.get('heading');
   if (!p || !h) return;
@@ -212,7 +212,7 @@ GCSDjimMolenkamp.LeafletView.prototype.vehicleIconChange = function() {
 };
 
 
-GCSDjimMolenkamp.LeafletView.prototype.setPathVisible = function(setting) {
+MineGCS.LeafletView.prototype.setPathVisible = function(setting) {
   if (this.vehiclePathVisible === undefined) {
     this.vehiclePathVisible = true;
   }
@@ -229,7 +229,7 @@ GCSDjimMolenkamp.LeafletView.prototype.setPathVisible = function(setting) {
 /**
  * Updates the vehicle path when the vehicle model changes.
  */
-GCSDjimMolenkamp.LeafletView.prototype.updateVehiclePath = function() {
+MineGCS.LeafletView.prototype.updateVehiclePath = function() {
   var p = this.vehicleModel.get('position');
   if (!p) return;
   if (this.vehiclePathVisible == false) return;
@@ -245,7 +245,7 @@ GCSDjimMolenkamp.LeafletView.prototype.updateVehiclePath = function() {
 /**
  * Handles changes in the GUIDE mode waypoint.
  */
-GCSDjimMolenkamp.LeafletView.prototype.updateGuideMarker = function() {
+MineGCS.LeafletView.prototype.updateGuideMarker = function() {
   var p = this.guideModel.toJSON();
   var latlng = new L.LatLng(p['lat'], p['lon']);
   if (!p) return;

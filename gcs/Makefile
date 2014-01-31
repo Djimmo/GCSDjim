@@ -74,7 +74,7 @@ ${JS_SCRIPT_DIR}/mavelous.min.js: ${JS_SRCS} ${WEB_DIR}/externs/*.js
 	    --root=${CLOSURE_LIBRARY_DIR}/closure/goog \
 	    --root=${CLOSURE_LIBRARY_DIR}/third_party/closure \
 	    --root=${WEB_DIR}/script/ \
-	    --namespace="GCSDjimMolenkamp.App" \
+	    --namespace="MineGCS.App" \
 	    --output_mode=compiled \
 	    --compiler_jar=${CLOSURE_COMPILER} \
 	    --compiler_flags="--compilation_level=SIMPLE_OPTIMIZATIONS" \

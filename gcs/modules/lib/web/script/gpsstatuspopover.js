@@ -1,4 +1,4 @@
-goog.provide('GCSDjimMolenkamp.GpsPopoverViewDelegate');
+goog.provide('MineGCS.GpsPopoverViewDelegate');
 
 /**
  * Djim Molenkamp
@@ -7,34 +7,34 @@ goog.provide('GCSDjimMolenkamp.GpsPopoverViewDelegate');
  */
 
 /**
- * @param {{mavlinkSrc: GCSDjimMolenkamp.MavlinkAPI, el: jQuery}} properties View
+ * @param {{mavlinkSrc: MineGCS.MavlinkAPI, el: jQuery}} properties View
  *     properties.
  * @constructor
  * @extends {Backbone.View}
  */
-GCSDjimMolenkamp.GpsPopoverViewDelegate = function(properties) {
+MineGCS.GpsPopoverViewDelegate = function(properties) {
   this.popoverTitle = 'GPS Info';
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.GpsPopoverViewDelegate , Backbone.View);
+goog.inherits(MineGCS.GpsPopoverViewDelegate , Backbone.View);
 
-GCSDjimMolenkamp.GpsPopoverViewDelegate.prototype.initialize = function() {
+MineGCS.GpsPopoverViewDelegate.prototype.initialize = function() {
   var mavlink = this.options['mavlinkSrc'];
   this.gpsraw = mavlink.subscribe('GPS_RAW_INT', this.render, this);
   this.gps = mavlink.subscribe('GLOBAL_POSITION_INT', this.render, this);
 };
 
-GCSDjimMolenkamp.GpsPopoverViewDelegate.prototype.popoverCreated = function(el) {
+MineGCS.GpsPopoverViewDelegate.prototype.popoverCreated = function(el) {
   this.$el = el;
   this.$el.find('.popover-title').text(this.popoverTitle);
   this.render();
 };
 
-GCSDjimMolenkamp.GpsPopoverViewDelegate.prototype.popoverDestroyed = function() {
+MineGCS.GpsPopoverViewDelegate.prototype.popoverDestroyed = function() {
   this.$el = null;
 };
 
-GCSDjimMolenkamp.GpsPopoverViewDelegate.prototype.render = function() {
+MineGCS.GpsPopoverViewDelegate.prototype.render = function() {
   if (this.$el) {
 
     var lat = (this.gps.get('lat') / 10e6).toFixed(7);

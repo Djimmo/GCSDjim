@@ -1,5 +1,5 @@
-goog.provide('GCSDjimMolenkamp.LeafletPanControlView');
-goog.provide('GCSDjimMolenkamp.LeafletPanModel');
+goog.provide('MineGCS.LeafletPanControlView');
+goog.provide('MineGCS.LeafletPanModel');
 
 
 
@@ -8,17 +8,17 @@ goog.provide('GCSDjimMolenkamp.LeafletPanModel');
  * @constructor
  * @extends {Backbone.View}
  */
-GCSDjimMolenkamp.LeafletPanControlView = function(properties) {
+MineGCS.LeafletPanControlView = function(properties) {
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.LeafletPanControlView, Backbone.View);
+goog.inherits(MineGCS.LeafletPanControlView, Backbone.View);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.LeafletPanControlView.prototype.initialize = function() {
+MineGCS.LeafletPanControlView.prototype.initialize = function() {
   this.button = this.options['button'];
   this.icon = this.options['icon'];
   this.button.click(goog.bind(this.onClick, this));
@@ -30,7 +30,7 @@ GCSDjimMolenkamp.LeafletPanControlView.prototype.initialize = function() {
 /**
  * Handles click events on the auto-pan button.
  */
-GCSDjimMolenkamp.LeafletPanControlView.prototype.onClick = function() {
+MineGCS.LeafletPanControlView.prototype.onClick = function() {
   if (this.model.get('tracking')) {
     this.model.set('tracking', false);
   } else {
@@ -42,7 +42,7 @@ GCSDjimMolenkamp.LeafletPanControlView.prototype.onClick = function() {
 /**
  * Updates the button based on the auto-pan state.
  */
-GCSDjimMolenkamp.LeafletPanControlView.prototype.onTrackingChange = function() {
+MineGCS.LeafletPanControlView.prototype.onTrackingChange = function() {
   if (this.model.get('tracking')) {
     this.button.addClass('btn-primary');
     this.icon.removeClass('icon-black');
@@ -61,17 +61,17 @@ GCSDjimMolenkamp.LeafletPanControlView.prototype.onTrackingChange = function() {
  * @constructor
  * @extends {Backbone.Model}
  */
-GCSDjimMolenkamp.LeafletPanModel = function(properties) {
+MineGCS.LeafletPanModel = function(properties) {
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.LeafletPanModel, Backbone.Model);
+goog.inherits(MineGCS.LeafletPanModel, Backbone.Model);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.LeafletPanModel.prototype.defaults = function() {
+MineGCS.LeafletPanModel.prototype.defaults = function() {
   return {
     'initialized': false,
     'tracking': true,
@@ -84,7 +84,7 @@ GCSDjimMolenkamp.LeafletPanModel.prototype.defaults = function() {
  * @override
  * @export
  */
-GCSDjimMolenkamp.LeafletPanModel.prototype.initialize = function() {
+MineGCS.LeafletPanModel.prototype.initialize = function() {
   this.vehicle = this.get('vehicle');
   this.vehicle.on('change', this.onVehicleChange_, this);
 };
@@ -94,7 +94,7 @@ GCSDjimMolenkamp.LeafletPanModel.prototype.initialize = function() {
  * Handles changes to the vehicle model.
  * @private
  */
-GCSDjimMolenkamp.LeafletPanModel.prototype.onVehicleChange_ = function() {
+MineGCS.LeafletPanModel.prototype.onVehicleChange_ = function() {
   var pos = this.vehicle.get('position');
   if (!this.get('initialized')) {
     if (pos && pos.lat && pos.lng) {
@@ -111,6 +111,6 @@ GCSDjimMolenkamp.LeafletPanModel.prototype.onVehicleChange_ = function() {
 /**
  * Cancels tracking.  Called when the user drags the map.
  */
-GCSDjimMolenkamp.LeafletPanModel.prototype.cancelTracking = function() {
+MineGCS.LeafletPanModel.prototype.cancelTracking = function() {
   this.set('tracking', false);
 };

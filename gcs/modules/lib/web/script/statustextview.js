@@ -1,28 +1,28 @@
-goog.provide('GCSDjimMolenkamp.StatustextView');
+goog.provide('MineGCS.StatustextView');
 
 
 
 /**
  * Displays STATUSTEXT messages.
- * @param {{mavlinkSrc: GCSDjimMolenkamp.MavlinkAPI}} attrs The model attributes.
+ * @param {{mavlinkSrc: MineGCS.MavlinkAPI}} attrs The model attributes.
  * @constructor
  * @extends {Backbone.View}
  */
-GCSDjimMolenkamp.StatustextView = function(attrs) {
+MineGCS.StatustextView = function(attrs) {
   goog.base(this, attrs);
 };
-goog.inherits(GCSDjimMolenkamp.StatustextView, Backbone.View);
+goog.inherits(MineGCS.StatustextView, Backbone.View);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.StatustextView.prototype.initialize = function() {
+MineGCS.StatustextView.prototype.initialize = function() {
   var mavlinkSrc = this.options['mavlinkSrc'];
   /** @type {!jQuery} */
   this.$el = $('#statustextview');
-  /** @type {GCSDjimMolenkamp.MavlinkMessage} */
+  /** @type {MineGCS.MavlinkMessage} */
   this.statusText = mavlinkSrc.subscribe('STATUSTEXT',
                                          this.onStatusTextChange, this);
   this.onStatusTextChange();
@@ -32,7 +32,7 @@ GCSDjimMolenkamp.StatustextView.prototype.initialize = function() {
 /**
  * Updates status text.
  */
-GCSDjimMolenkamp.StatustextView.prototype.onStatusTextChange = function() {
+MineGCS.StatustextView.prototype.onStatusTextChange = function() {
   clearTimeout(this.timeout);
   var el = this.$el;
   el.html(this.statusText.get('text'));

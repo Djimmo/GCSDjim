@@ -1,4 +1,4 @@
-goog.provide('GCSDjimMolenkamp.AltSpeedView');
+goog.provide('MineGCS.AltSpeedView');
 
 /**
  * Djim Molenkamp - djimmo@gmail.com
@@ -7,23 +7,23 @@ goog.provide('GCSDjimMolenkamp.AltSpeedView');
  */
 
 /**
- * Battery status button.
- * @param {{mavlinkSrc: GCSDjimMolenkamp.MavlinkAPI, el: (Element|jQuery)}} properties
+ *  Altitude and Speed status button.
+ * @param {{mavlinkSrc: MineGCS.MavlinkAPI, el: (Element|jQuery)}} properties
  *     Button properties.
  * @constructor
  * @extends {Backbone.View}
  */
-GCSDjimMolenkamp.AltSpeedView = function(properties) {
+MineGCS.AltSpeedView = function(properties) {
   goog.base(this, properties);
-};
-goog.inherits(GCSDjimMolenkamp.AltSpeedView, Backbone.View);
+};\
+goog.inherits(MineGCS.AltSpeedView, Backbone.View);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.AltSpeedView.prototype.initialize = function() {
+MineGCS.AltSpeedView.prototype.initialize = function() {
   var mavlink = this.options['mavlinkSrc'];
   this.vfrhud = mavlink.subscribe('VFR_HUD', this.onSysStatus, this);
   this.$el = this.options['el'];
@@ -33,7 +33,7 @@ GCSDjimMolenkamp.AltSpeedView.prototype.initialize = function() {
 /**
  * Handles SYS_STATUS mavlink messages.
  */
-GCSDjimMolenkamp.AltSpeedView.prototype.onSysStatus = function() {
+MineGCS.AltSpeedView.prototype.onSysStatus = function() {
   var gs = this.vfrhud.get('groundspeed');
   var alt = this.vfrhud.get('alt');
   var climb = this.vfrhud.get('climb');
@@ -54,7 +54,7 @@ GCSDjimMolenkamp.AltSpeedView.prototype.onSysStatus = function() {
  * @param {string} textLabel The button label.
  * @private
  */
-GCSDjimMolenkamp.AltSpeedView.prototype.setButton_ = function(cssClass, textLabel) {
+MineGCS.AltSpeedView.prototype.setButton_ = function(cssClass, textLabel) {
   this.$el.removeClass('btn-success btn-warning btn-danger btn-inverse');
   this.$el.addClass(cssClass);
   var html = '<span class="hidden-phone">' + textLabel + '</span>';

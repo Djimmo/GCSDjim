@@ -1,4 +1,4 @@
-goog.provide('GCSDjimMolenkamp.LeafletProviders');
+goog.provide('MineGCS.LeafletProviders');
 
 
 
@@ -7,16 +7,16 @@ goog.provide('GCSDjimMolenkamp.LeafletProviders');
  * @constructor
  * @extends {Backbone.Model}
  */
-GCSDjimMolenkamp.LeafletProviders = function(opt_properties) {
+MineGCS.LeafletProviders = function(opt_properties) {
   goog.base(this, opt_properties);
 };
-goog.inherits(GCSDjimMolenkamp.LeafletProviders, Backbone.Model);
+goog.inherits(MineGCS.LeafletProviders, Backbone.Model);
 
 
 /**
  * Bing API key registered by Pat. Basic/public website
  */
-GCSDjimMolenkamp.LeafletProviders.bingKey = ('AnFxXUB376BgaEQMj947c43V45ipmMvdcoY-' +
+MineGCS.LeafletProviders.bingKey = ('AnFxXUB376BgaEQMj947c43V45ipmMvdcoY-' +
                                      'TAE4-Y23mu1yFLHF0k2BMJP-MU1B');
 
 
@@ -24,7 +24,7 @@ GCSDjimMolenkamp.LeafletProviders.bingKey = ('AnFxXUB376BgaEQMj947c43V45ipmMvdco
  * @override
  * @export
  */
-GCSDjimMolenkamp.LeafletProviders.prototype.defaults = function() {
+MineGCS.LeafletProviders.prototype.defaults = function() {
   return {
     'provider': 'offline'
   };
@@ -35,27 +35,31 @@ GCSDjimMolenkamp.LeafletProviders.prototype.defaults = function() {
  * Creates a new provider.
  * @return {Object} The new provider.
  */
-GCSDjimMolenkamp.LeafletProviders.prototype.getProvider = function() {
+MineGCS.LeafletProviders.prototype.getProvider = function() {
   var name = this.get('provider');
-  var p = GCSDjimMolenkamp.LeafletProviders.Providers[name];
+  var p = MineGCS.LeafletProviders.Providers[name];
   return p.constructor();
 };
 
 
 /** @typedef {{description: String, constructor: Function}} */
-GCSDjimMolenkamp.LeafletProvider;
+MineGCS.LeafletProvider;
 
 
 /**
  * Provider specs.
  * @type {Object}
  */
-GCSDjimMolenkamp.LeafletProviders.Providers = {
+MineGCS.LeafletProviders.Providers = {
+  // We don't need these providers since for this project the groundstation
+  // is not connected to the internet! So I have only added offline maps
+  // which are stored on the beaglebone itself. See below -- Djim
+  // 
   // 'bing': {
     // description: 'Bing Satellite with Labels',
     // constructor: function() {
       // return new L.BingLayer(
-          // GCSDjimMolenkamp.LeafletProviders.bingKey,
+          // MineGCS.LeafletProviders.bingKey,
           // {
             // type: 'AerialWithLabels',
             // maxZoom: 21
@@ -87,7 +91,7 @@ GCSDjimMolenkamp.LeafletProviders.Providers = {
     constructor: function() {
       var offlineUrl = ('http://192.168.1.80:9999/' +
                     '/maps/{z}/gs_{x}_{y}_{z}.jpg');
-      return new L.TileLayer(offlineUrl, { maxZoom: 18 });
+      return new L.TileLayer(offlineUrl, { maxZoom: 20 });
     }
   }
 };

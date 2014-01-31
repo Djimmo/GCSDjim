@@ -1,4 +1,4 @@
-goog.provide('GCSDjimMolenkamp.GuideModel');
+goog.provide('MineGCS.GuideModel');
 
 goog.require('goog.json');
 
@@ -11,17 +11,17 @@ goog.require('goog.json');
  * @constructor
  * @extends {Backbone.Model}
  */
-GCSDjimMolenkamp.GuideModel = function(properties) {
+MineGCS.GuideModel = function(properties) {
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.GuideModel, Backbone.Model);
+goog.inherits(MineGCS.GuideModel, Backbone.Model);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.GuideModel.prototype.defaults = function() {
+MineGCS.GuideModel.prototype.defaults = function() {
   return {
     'alt': 20,
     'lat': null,
@@ -34,7 +34,7 @@ GCSDjimMolenkamp.GuideModel.prototype.defaults = function() {
  * @override
  * @export
  */
-GCSDjimMolenkamp.GuideModel.prototype.initialize = function() {
+MineGCS.GuideModel.prototype.initialize = function() {
   var mavlink = this.get('mavlinkSrc');
   this.metaWaypointModel = mavlink.subscribe(
       'META_WAYPOINT', this.onMetaWaypointChange, this);
@@ -44,7 +44,7 @@ GCSDjimMolenkamp.GuideModel.prototype.initialize = function() {
 /**
  * Handles META_WAYPOINT mavlink messages.
  */
-GCSDjimMolenkamp.GuideModel.prototype.onMetaWaypointChange = function() {
+MineGCS.GuideModel.prototype.onMetaWaypointChange = function() {
   var waypt = this.metaWaypointModel.get('waypoint');
   if (waypt) {
     this.set({ 'alt': waypt['alt'], 'lat': waypt['lat'], 'lon': waypt['lon'] });
@@ -56,7 +56,7 @@ GCSDjimMolenkamp.GuideModel.prototype.onMetaWaypointChange = function() {
  * Sets a new target waypoint.
  * @param {{lat: number, lon: number}} target The new target location.
  */
-GCSDjimMolenkamp.GuideModel.prototype.setTarget = function(target) {
+MineGCS.GuideModel.prototype.setTarget = function(target) {
   this.set(target);
   this.send();
 };
@@ -66,7 +66,7 @@ GCSDjimMolenkamp.GuideModel.prototype.setTarget = function(target) {
  * Tells the server to set the current waypoint and switch to GUIDE
  * mode.
  */
-GCSDjimMolenkamp.GuideModel.prototype.send = function() {
+MineGCS.GuideModel.prototype.send = function() {
   var loc = {
     'lat': this.get('lat'),
     'lon': this.get('lon'),
@@ -83,7 +83,7 @@ GCSDjimMolenkamp.GuideModel.prototype.send = function() {
  *
  * @param {Object} loc The new waypoint location.
  */
-GCSDjimMolenkamp.GuideModel.prototype.sendServer = function(loc) {
+MineGCS.GuideModel.prototype.sendServer = function(loc) {
   var req = goog.json.serialize({ 'command': 'FLYTO', 'location': loc });
   $.ajax({
     type: 'POST',

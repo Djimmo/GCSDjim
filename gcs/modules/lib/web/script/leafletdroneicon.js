@@ -1,4 +1,4 @@
-goog.provide('GCSDjimMolenkamp.LeafletDroneIconModel');
+goog.provide('MineGCS.LeafletDroneIconModel');
 
 
 
@@ -9,17 +9,17 @@ goog.provide('GCSDjimMolenkamp.LeafletDroneIconModel');
  * @constructor
  * @extends {Backbone.Model}
  */
-GCSDjimMolenkamp.LeafletDroneIconModel = function(opt_properties) {
+MineGCS.LeafletDroneIconModel = function(opt_properties) {
   goog.base(this, opt_properties);
 };
-goog.inherits(GCSDjimMolenkamp.LeafletDroneIconModel, Backbone.Model);
+goog.inherits(MineGCS.LeafletDroneIconModel, Backbone.Model);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.LeafletDroneIconModel.prototype.defaults = function() {
+MineGCS.LeafletDroneIconModel.prototype.defaults = function() {
   return {
     'icon': 'quad'
   };
@@ -30,9 +30,9 @@ GCSDjimMolenkamp.LeafletDroneIconModel.prototype.defaults = function() {
  * Returns the current icon object.
  * @return {Object} The current icon object.
  */
-GCSDjimMolenkamp.LeafletDroneIconModel.prototype.getIcon = function() {
+MineGCS.LeafletDroneIconModel.prototype.getIcon = function() {
   var name = this.get('icon');
-  var iconSpec = GCSDjimMolenkamp.LeafletDroneIconModel.Icons[name];
+  var iconSpec = MineGCS.LeafletDroneIconModel.Icons[name];
   return new iconSpec.constructor();
 };
 
@@ -41,7 +41,7 @@ GCSDjimMolenkamp.LeafletDroneIconModel.prototype.getIcon = function() {
  * Possible icons
  * @enum {Object}
  */
-GCSDjimMolenkamp.LeafletDroneIconModel.Icons = {
+MineGCS.LeafletDroneIconModel.Icons = {
   'quad': {
     description: 'Quadcopter',
     constructor: L.Icon.extend({options: {

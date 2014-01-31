@@ -35,8 +35,8 @@
 <script type="text/javascript">
 $(function() {
 
-  var mavlinkAPI = new GCSDjimMolenkamp.MavlinkAPI({ url: '/mavlink/' });
-  var pfdView = new GCSDjimMolenkamp.PFDView({
+  var mavlinkAPI = new MineGCS.MavlinkAPI({ url: '/mavlink/' });
+  var pfdView = new MineGCS.PFDView({
     mavlinkSrc: mavlinkAPI,
     drawingid: 'pfd',
     el: $('#pfdblock')

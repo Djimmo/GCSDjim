@@ -1,26 +1,26 @@
-goog.provide('GCSDjimMolenkamp.CommStatusButtonView');
-goog.provide('GCSDjimMolenkamp.CommStatusModel');
-goog.provide('GCSDjimMolenkamp.PacketLossModel');
+goog.provide('MineGCS.CommStatusButtonView');
+goog.provide('MineGCS.CommStatusModel');
+goog.provide('MineGCS.PacketLossModel');
 
 /**
  * Communication status Backbone model.
- * @param {{mavlinkSrc: GCSDjimMolenkamp.MavlinkAPI}} properties The model properties.
+ * @param {{mavlinkSrc: MineGCS.MavlinkAPI}} properties The model properties.
  * @constructor
  * @extends {Backbone.Model}
  */
-GCSDjimMolenkamp.CommStatusModel = function(properties) {
+MineGCS.CommStatusModel = function(properties) {
   this.SERVER_TIMEOUT_INTERVAL = 3000;
   this.HEARTBEAT_TIMEOUT_INTERVAL = 2000;
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.CommStatusModel, Backbone.Model);
+goog.inherits(MineGCS.CommStatusModel, Backbone.Model);
 
 
 /**
  * Communications status state.
  * @enum {number}
  */
-GCSDjimMolenkamp.CommStatusModel.State = {
+MineGCS.CommStatusModel.State = {
   UNINITIALIZED: 0,
   OK: 1,
   TIMED_OUT_ONCE: 2,
@@ -33,10 +33,10 @@ GCSDjimMolenkamp.CommStatusModel.State = {
  * @override
  * @export
  */
-GCSDjimMolenkamp.CommStatusModel.prototype.defaults = function() {
+MineGCS.CommStatusModel.prototype.defaults = function() {
   return {
-    'mav': GCSDjimMolenkamp.CommStatusModel.State.UNINITIALIZED,
-    'server': GCSDjimMolenkamp.CommStatusModel.State.UNINITIALIZED
+    'mav': MineGCS.CommStatusModel.State.UNINITIALIZED,
+    'server': MineGCS.CommStatusModel.State.UNINITIALIZED
   };
 };
 
@@ -45,7 +45,7 @@ GCSDjimMolenkamp.CommStatusModel.prototype.defaults = function() {
  * @override
  * @export
  */
-GCSDjimMolenkamp.CommStatusModel.prototype.initialize = function() {
+MineGCS.CommStatusModel.prototype.initialize = function() {
   /* Only initialize the server.
    * Mav is uninitialized until first heartbeat. */
   var mavlink = this.get('mavlinkSrc');
@@ -59,8 +59,8 @@ GCSDjimMolenkamp.CommStatusModel.prototype.initialize = function() {
 /**
  * Handles HEARTBEAT mavlink messages.
  */
-GCSDjimMolenkamp.CommStatusModel.prototype.onHeartbeat = function() {
-  this.set('mav', GCSDjimMolenkamp.CommStatusModel.State.OK);
+MineGCS.CommStatusModel.prototype.onHeartbeat = function() {
+  this.set('mav', MineGCS.CommStatusModel.State.OK);
   this.resetHeartbeatTimeout();
 };
 
@@ -68,7 +68,7 @@ GCSDjimMolenkamp.CommStatusModel.prototype.onHeartbeat = function() {
 /**
  * Resets the HEARTBEAT watchdog timer.
  */
-GCSDjimMolenkamp.CommStatusModel.prototype.resetHeartbeatTimeout = function() {
+MineGCS.CommStatusModel.prototype.resetHeartbeatTimeout = function() {
   var self = this;
   clearTimeout(this.heartbeatTimeout);
   this.heartbeatTimeout = setTimeout(
@@ -83,12 +83,12 @@ GCSDjimMolenkamp.CommStatusModel.prototype.resetHeartbeatTimeout = function() {
  * Fires if we haven't received a HEARTBEAT message in
  * HEARTBEAT_TIMEOUT_INTERVAL ms.
  */
-GCSDjimMolenkamp.CommStatusModel.prototype.onHeartbeatTimeout = function() {
+MineGCS.CommStatusModel.prototype.onHeartbeatTimeout = function() {
   var mavstat = this.get('mav');
-  if (mavstat === GCSDjimMolenkamp.CommStatusModel.State.OK) {
-    this.set('mav', GCSDjimMolenkamp.CommStatusModel.State.TIMED_OUT_ONCE);
-  } else if (mavstat === GCSDjimMolenkamp.CommStatusModel.State.TIMED_OUT_ONCE) {
-    this.set('mav', GCSDjimMolenkamp.CommStatusModel.State.TIMED_OUT_MANY);
+  if (mavstat === MineGCS.CommStatusModel.State.OK) {
+    this.set('mav', MineGCS.CommStatusModel.State.TIMED_OUT_ONCE);
+  } else if (mavstat === MineGCS.CommStatusModel.State.TIMED_OUT_ONCE) {
+    this.set('mav', MineGCS.CommStatusModel.State.TIMED_OUT_MANY);
   }
   /* Do nothing if uninitialized. */
   this.resetHeartbeatTimeout();
@@ -98,8 +98,8 @@ GCSDjimMolenkamp.CommStatusModel.prototype.onHeartbeatTimeout = function() {
 /**
  * Called if we get any non-error response from the server.
  */
-GCSDjimMolenkamp.CommStatusModel.prototype.onServerSuccess = function() {
-  this.set('server', GCSDjimMolenkamp.CommStatusModel.State.OK);
+MineGCS.CommStatusModel.prototype.onServerSuccess = function() {
+  this.set('server', MineGCS.CommStatusModel.State.OK);
   this.resetServerTimeout();
 };
 
@@ -107,15 +107,15 @@ GCSDjimMolenkamp.CommStatusModel.prototype.onServerSuccess = function() {
 /**
  * Called if we get a server error.
  */
-GCSDjimMolenkamp.CommStatusModel.prototype.onServerError = function() {
-  this.set('server', GCSDjimMolenkamp.CommStatusModel.State.ERROR);
+MineGCS.CommStatusModel.prototype.onServerError = function() {
+  this.set('server', MineGCS.CommStatusModel.State.ERROR);
 };
 
 
 /**
  * Resets the server comm watchdog timer.
  */
-GCSDjimMolenkamp.CommStatusModel.prototype.resetServerTimeout = function() {
+MineGCS.CommStatusModel.prototype.resetServerTimeout = function() {
   var self = this;
   clearTimeout(this.serverTimeout);
   this.serverTimeout = setTimeout(
@@ -127,12 +127,12 @@ GCSDjimMolenkamp.CommStatusModel.prototype.resetServerTimeout = function() {
 /**
  * Fires if the server comm watchdog timer fires.
  */
-GCSDjimMolenkamp.CommStatusModel.prototype.onServerTimeout = function() {
+MineGCS.CommStatusModel.prototype.onServerTimeout = function() {
   var serverstat = this.get('server');
-  if (serverstat === GCSDjimMolenkamp.CommStatusModel.State.OK) {
-    this.set('server', GCSDjimMolenkamp.CommStatusModel.State.TIMED_OUT_ONCE);
-  } else if (serverstat === GCSDjimMolenkamp.CommStatusModel.State.TIMED_OUT_ONCE) {
-    this.set('server', GCSDjimMolenkamp.CommStatusModel.State.TIMED_OUT_MANY);
+  if (serverstat === MineGCS.CommStatusModel.State.OK) {
+    this.set('server', MineGCS.CommStatusModel.State.TIMED_OUT_ONCE);
+  } else if (serverstat === MineGCS.CommStatusModel.State.TIMED_OUT_ONCE) {
+    this.set('server', MineGCS.CommStatusModel.State.TIMED_OUT_MANY);
   }
   /* Do nothing if there is an error or uninitialized. */
   this.resetServerTimeout();
@@ -146,18 +146,18 @@ GCSDjimMolenkamp.CommStatusModel.prototype.onServerTimeout = function() {
  * @constructor
  * @extends {Backbone.Model}
  */
-GCSDjimMolenkamp.PacketLossModel = function(properties) {
+MineGCS.PacketLossModel = function(properties) {
   this.period = 10; /* period should not be changed after initialization. */
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.PacketLossModel, Backbone.Model);
+goog.inherits(MineGCS.PacketLossModel, Backbone.Model);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.PacketLossModel.prototype.defaults = function() {
+MineGCS.PacketLossModel.prototype.defaults = function() {
   return {
     'history': [],
     'current': -1
@@ -169,7 +169,7 @@ GCSDjimMolenkamp.PacketLossModel.prototype.defaults = function() {
  * @override
  * @export
  */
-GCSDjimMolenkamp.PacketLossModel.prototype.initialize = function() {
+MineGCS.PacketLossModel.prototype.initialize = function() {
   this.metalinkquality = this.get('mavlinkSrc').subscribe(
       'META_LINKQUALITY', this.onMessage, this);
 };
@@ -178,7 +178,7 @@ GCSDjimMolenkamp.PacketLossModel.prototype.initialize = function() {
 /**
  * Handles META_LINKQUALITY mavlink messages.
  */
-GCSDjimMolenkamp.PacketLossModel.prototype.onMessage = function() {
+MineGCS.PacketLossModel.prototype.onMessage = function() {
   var history = this.get('history');
   var current = this.get('current');
   var latest = this.metalinkquality.toJSON();
@@ -193,7 +193,7 @@ GCSDjimMolenkamp.PacketLossModel.prototype.onMessage = function() {
  * Computes the change in packet comms stats since the last packet.
  * @return {?Object} The packet comms stats.
  */
-GCSDjimMolenkamp.PacketLossModel.prototype.getDelta = function() {
+MineGCS.PacketLossModel.prototype.getDelta = function() {
   var history = this.get('history');
   var current = this.get('current');
   /* current is -1 when we dont yet have info from server. */
@@ -216,7 +216,7 @@ GCSDjimMolenkamp.PacketLossModel.prototype.getDelta = function() {
  * @param {?} period The period between the two messages.
  * @return {Object} The packet comms stats.
  */
-GCSDjimMolenkamp.PacketLossModel.prototype.diff = function(latest, compare, period) {
+MineGCS.PacketLossModel.prototype.diff = function(latest, compare, period) {
   return {
     'master_in': latest['master_in'] - compare['master_in'],
     'master_out': latest['master_out'] - compare['master_out'],
@@ -232,17 +232,17 @@ GCSDjimMolenkamp.PacketLossModel.prototype.diff = function(latest, compare, peri
  * @constructor
  * @extends {Backbone.View}
  */
-GCSDjimMolenkamp.CommStatusButtonView = function(properties) {
+MineGCS.CommStatusButtonView = function(properties) {
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.CommStatusButtonView, Backbone.View);
+goog.inherits(MineGCS.CommStatusButtonView, Backbone.View);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.CommStatusButtonView.prototype.initialize = function() {
+MineGCS.CommStatusButtonView.prototype.initialize = function() {
   this.commStatusModel = this.options['commStatusModel'];
   this.commStatusModel.bind('change', this.buttonRender, this);
 };
@@ -251,16 +251,16 @@ GCSDjimMolenkamp.CommStatusButtonView.prototype.initialize = function() {
 /**
  * Renders the button.  Called when the packet loss model changes.
  */
-GCSDjimMolenkamp.CommStatusButtonView.prototype.buttonRender = function() {
+MineGCS.CommStatusButtonView.prototype.buttonRender = function() {
   var csm = this.commStatusModel;
   var state = csm.toJSON();
   var server = state['server'];
   var mav = state['mav'];
-  var UNINITIALIZED = GCSDjimMolenkamp.CommStatusModel.State.UNINITIALIZED;
-  var OK = GCSDjimMolenkamp.CommStatusModel.State.OK;
-  var TIMED_OUT_ONCE = GCSDjimMolenkamp.CommStatusModel.State.TIMED_OUT_ONCE;
-  var TIMED_OUT_MANY = GCSDjimMolenkamp.CommStatusModel.State.TIMED_OUT_MANY;
-  var ERROR = GCSDjimMolenkamp.CommStatusModel.State.ERROR;
+  var UNINITIALIZED = MineGCS.CommStatusModel.State.UNINITIALIZED;
+  var OK = MineGCS.CommStatusModel.State.OK;
+  var TIMED_OUT_ONCE = MineGCS.CommStatusModel.State.TIMED_OUT_ONCE;
+  var TIMED_OUT_MANY = MineGCS.CommStatusModel.State.TIMED_OUT_MANY;
+  var ERROR = MineGCS.CommStatusModel.State.ERROR;
 
   if (server === OK && mav === OK) {
     this.setButton(OK);
@@ -280,24 +280,24 @@ GCSDjimMolenkamp.CommStatusButtonView.prototype.buttonRender = function() {
 
 /**
  * Updates the button view to reflect the communications state.
- * @param {GCSDjimMolenkamp.CommStatusModel.State} state The communications state.
+ * @param {MineGCS.CommStatusModel.State} state The communications state.
  */
-GCSDjimMolenkamp.CommStatusButtonView.prototype.setButton = function(state) {
+MineGCS.CommStatusButtonView.prototype.setButton = function(state) {
   var csm = this.commStatusModel;
   this.$el.removeClass('btn-success btn-danger ' +
                        'btn-warning btn-inverse ');
   var html = 'Link';
   var lclass = 'btn-inverse';
-  if (state === GCSDjimMolenkamp.CommStatusModel.State.UNINITIALIZED) {
+  if (state === MineGCS.CommStatusModel.State.UNINITIALIZED) {
     lclass = 'btn-inverse';
     html = 'Link';
-  } else if (state === GCSDjimMolenkamp.CommStatusModel.State.OK) {
+  } else if (state === MineGCS.CommStatusModel.State.OK) {
     lclass = 'btn-success';
     html = 'Link';
-  } else if (state === GCSDjimMolenkamp.CommStatusModel.State.TIMED_OUT_ONCE) {
+  } else if (state === MineGCS.CommStatusModel.State.TIMED_OUT_ONCE) {
     lclass = 'btn-warning';
     html = 'Link';
-  } else if (state === GCSDjimMolenkamp.CommStatusModel.State.TIMED_OUT_MANY) {
+  } else if (state === MineGCS.CommStatusModel.State.TIMED_OUT_MANY) {
     lclass = 'btn-danger';
     html = 'Link';
   } else {

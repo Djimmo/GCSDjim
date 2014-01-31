@@ -329,7 +329,7 @@ class ModuleState(object):
 
 def name():
   """Returns the module name."""
-  return 'Ground Control Djim Molenkamp'
+  return 'MineCopter Ground Control edited by Djim Molenkamp'
 
 
 def description():
@@ -350,7 +350,7 @@ def init(module_context):
   g_module_context.mavelous_state = state
   state.server = mavserver.start_server(
     '0.0.0.0', port=9999, module_state=state)
-  print 'Ground Control Djimboo is running at http://localhost:9999'
+  print 'MineCopter GCS is running at http://localhost:9999'
 
 
 def unload():
@@ -358,7 +358,7 @@ def unload():
 
   Called by mavproxy.
   """
-  logger.info('mavelous module unload')
+  logger.info('MineCopter GCS module unload')
   global g_module_context
   g_module_context.mavelous_state.terminate()
 

@@ -1,4 +1,4 @@
-goog.provide('GCSDjimMolenkamp.RadioButtonPopoverView');
+goog.provide('MineGCS.RadioButtonPopoverView');
 
 
 /**
@@ -7,17 +7,17 @@ goog.provide('GCSDjimMolenkamp.RadioButtonPopoverView');
  * @constructor
  * @extends {Backbone.View}
  */
-GCSDjimMolenkamp.RadioButtonPopoverView = function(properties) {
+MineGCS.RadioButtonPopoverView = function(properties) {
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.RadioButtonPopoverView, Backbone.View);
+goog.inherits(MineGCS.RadioButtonPopoverView, Backbone.View);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.RadioButtonPopoverView.prototype.initialize = function() {
+MineGCS.RadioButtonPopoverView.prototype.initialize = function() {
   /* create child views with the given prototypes and this object as
    * the parent controller. children will connect their click handlers
    * to onButtonClick in initialize. */
@@ -25,7 +25,7 @@ GCSDjimMolenkamp.RadioButtonPopoverView.prototype.initialize = function() {
   var self = this;
   this.popoverViews = goog.array.map(prototypes, function (proto) {
     goog.object.extend(proto, {'radioBtnController': self });
-    return new GCSDjimMolenkamp.PopoverView(proto);
+    return new MineGCS.PopoverView(proto);
   });
 };
 
@@ -34,7 +34,7 @@ GCSDjimMolenkamp.RadioButtonPopoverView.prototype.initialize = function() {
  * @param {number} btnindex The button index.
  * @private
  */
-GCSDjimMolenkamp.RadioButtonPopoverView.prototype.onButtonClick = function( clickedview ) {
+MineGCS.RadioButtonPopoverView.prototype.onButtonClick = function( clickedview ) {
   var selected = clickedview.selected();
   if (selected) {
     /* delselect this popover */

@@ -56,7 +56,7 @@
 
 <script>
   $(function() {
-  window.mavelous_app = new GCSDjimMolenkamp.App();
+  window.mavelous_app = new MineGCS.App();
   mavelous_app.start();
     });
 </script>
@@ -64,21 +64,23 @@
     MAV <%= mav_html %> | SERVER <%= server_html %>
 </script>
 
+<!-- Adding by Djim for icon on iOS devices -->
 <link rel="apple-touch-icon" sizes="144x144" href="apple-touch-icon.png" />
 
 <!-- HTML BODY-->
-<title>Ground Control by Djim Molenkamp</title>
+<title>MineCopterGCS</title>
 </head>
 <body>
   <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container-fluid">
-        <a class="brand hidden-phone" href="#">Tou v.3</a>
+        <a class="brand hidden-phone" href="#">MineCopter GCS</a>
         <ul class="nav">
           <li id="navbar-overview" class="hidden-phone">
             <a href="#overview">Overview</a>
           </li>
-          <!-- li id="navbar-maponly">
+		  <!-- Commented stuff not necessary for this project -- Djim -->
+          <!-- li id="navbar-maponly"> Not necessary anymore
             <a href="#maponly">Map</a>
           </li> -->
        <!--    <li class="divider-vertical"></li> -->
@@ -157,7 +159,7 @@
     </div>
     <div class="modal-body">
       <h4>Map</h4><br />
-      <!-- <p>Provider <select id="settings-mapproviderpicker"></select> </p> -->
+      <p>Provider <select id="settings-mapproviderpicker"></select> </p>
       <p>Zoom <input id="settings-mapzoom" type="range" min="1" max="21">
         <span id="settings-mapzoom-value"></span>
       <p>Path <select id="settings-mappathpicker">

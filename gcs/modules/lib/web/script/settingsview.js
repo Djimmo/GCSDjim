@@ -1,6 +1,6 @@
-goog.provide('GCSDjimMolenkamp.SettingsView');
+goog.provide('MineGCS.SettingsView');
 
-goog.require('GCSDjimMolenkamp.PFDSettingsModel');
+goog.require('MineGCS.PFDSettingsModel');
 
 
 
@@ -10,17 +10,17 @@ goog.require('GCSDjimMolenkamp.PFDSettingsModel');
  * @constructor
  * @extends {Backbone.View}
  */
-GCSDjimMolenkamp.SettingsView = function(properties) {
+MineGCS.SettingsView = function(properties) {
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.SettingsView, Backbone.View);
+goog.inherits(MineGCS.SettingsView, Backbone.View);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.SettingsView.prototype.initialize = function() {
+MineGCS.SettingsView.prototype.initialize = function() {
   var self = this;
   /* Setup settings pane elements (jquery) */
   this.modalToggle = this.options['modalToggle'];
@@ -64,12 +64,12 @@ GCSDjimMolenkamp.SettingsView.prototype.initialize = function() {
 /**
  * Set up the map provider picker.
  */
-GCSDjimMolenkamp.SettingsView.prototype.setupMapProviderPicker = function() {
+MineGCS.SettingsView.prototype.setupMapProviderPicker = function() {
   var self = this;
   if (this.mapProviderModel === undefined) {
     return;
   }
-  _.each(GCSDjimMolenkamp.LeafletProviders.Providers, function(provider, name) {
+  _.each(MineGCS.LeafletProviders.Providers, function(provider, name) {
     self.mapProviderPicker.append('<option value="' + name + '">' +
                                   provider.description + '</option>');
   });
@@ -83,7 +83,7 @@ GCSDjimMolenkamp.SettingsView.prototype.setupMapProviderPicker = function() {
 /**
  * Set up the map zoom slider.
  */
-GCSDjimMolenkamp.SettingsView.prototype.setupMapZoomSlider = function() {
+MineGCS.SettingsView.prototype.setupMapZoomSlider = function() {
   var self = this;
   if (this.map === undefined) {
     return;
@@ -97,7 +97,7 @@ GCSDjimMolenkamp.SettingsView.prototype.setupMapZoomSlider = function() {
 /**
  * Set up map trail picker
  */
-GCSDjimMolenkamp.SettingsView.prototype.setupMapPathPicker = function() {
+MineGCS.SettingsView.prototype.setupMapPathPicker = function() {
   var self = this;
   if (this.map === undefined) {
     return;
@@ -111,12 +111,12 @@ GCSDjimMolenkamp.SettingsView.prototype.setupMapPathPicker = function() {
 /**
  * Set up the vehicle icon picker.
  */
-GCSDjimMolenkamp.SettingsView.prototype.setupVehicleIconPicker = function() {
+MineGCS.SettingsView.prototype.setupVehicleIconPicker = function() {
   var self = this;
   if (this.vehicleIconModel === undefined) {
     return;
   }
-  _.each(GCSDjimMolenkamp.LeafletDroneIconModel.Icons, function(icon, name) {
+  _.each(MineGCS.LeafletDroneIconModel.Icons, function(icon, name) {
     self.vehicleIconPicker.append('<option value="' + name + '">' +
                                   icon.description + '</option>');
   });
@@ -130,7 +130,7 @@ GCSDjimMolenkamp.SettingsView.prototype.setupVehicleIconPicker = function() {
 /**
  * Handles zoom slider changes.
  */
-GCSDjimMolenkamp.SettingsView.prototype.onZoomChange = function() {
+MineGCS.SettingsView.prototype.onZoomChange = function() {
   this.mapZoomSlider.val(this.map.getZoom());
   this.mapZoomValue.html(this.map.getZoom().toString());
 };
@@ -141,45 +141,45 @@ GCSDjimMolenkamp.SettingsView.prototype.onZoomChange = function() {
 /**
  * Set up the PFD settings.
  */
-GCSDjimMolenkamp.SettingsView.prototype.setupPFDSettings = function() {
+MineGCS.SettingsView.prototype.setupPFDSettings = function() {
   var self = this;
   this.pfdPositionLeft.click(function() {
     if (self.pfdPositionUp.hasClass('active')) {
       self.pfdSettingsModel.set('position',
-                                GCSDjimMolenkamp.PFDSettingsModel.Position.TOPLEFT);
+                                MineGCS.PFDSettingsModel.Position.TOPLEFT);
     } else {
       self.pfdSettingsModel.set('position',
-                                GCSDjimMolenkamp.PFDSettingsModel.Position.BOTTOMLEFT);
+                                MineGCS.PFDSettingsModel.Position.BOTTOMLEFT);
     }
   });
 
   this.pfdPositionRight.click(function() {
     if (self.pfdPositionUp.hasClass('active')) {
       self.pfdSettingsModel.set('position',
-                                GCSDjimMolenkamp.PFDSettingsModel.Position.TOPRIGHT);
+                                MineGCS.PFDSettingsModel.Position.TOPRIGHT);
     } else {
       self.pfdSettingsModel.set('position',
-                                GCSDjimMolenkamp.PFDSettingsModel.Position.BOTTOMRIGHT);
+                                MineGCS.PFDSettingsModel.Position.BOTTOMRIGHT);
     }
   });
 
   this.pfdPositionUp.click(function() {
     if (self.pfdPositionLeft.hasClass('active')) {
       self.pfdSettingsModel.set('position',
-                                GCSDjimMolenkamp.PFDSettingsModel.Position.TOPLEFT);
+                                MineGCS.PFDSettingsModel.Position.TOPLEFT);
     } else {
       self.pfdSettingsModel.set('position',
-                                GCSDjimMolenkamp.PFDSettingsModel.Position.TOPRIGHT);
+                                MineGCS.PFDSettingsModel.Position.TOPRIGHT);
     }
   });
 
   this.pfdPositionDown.click(function() {
     if (self.pfdPositionLeft.hasClass('active')) {
       self.pfdSettingsModel.set('position',
-                                GCSDjimMolenkamp.PFDSettingsModel.Position.BOTTOMLEFT);
+                                MineGCS.PFDSettingsModel.Position.BOTTOMLEFT);
     } else {
       self.pfdSettingsModel.set('position',
-                                GCSDjimMolenkamp.PFDSettingsModel.Position.BOTTOMRIGHT);
+                                MineGCS.PFDSettingsModel.Position.BOTTOMRIGHT);
     }
   });
 
@@ -191,22 +191,22 @@ GCSDjimMolenkamp.SettingsView.prototype.setupPFDSettings = function() {
 /**
  * Handles PFD settings changes.
  */
-GCSDjimMolenkamp.SettingsView.prototype.onPFDSettingsChange = function() {
+MineGCS.SettingsView.prototype.onPFDSettingsChange = function() {
   var position = this.pfdSettingsModel.get('position');
   switch (position) {
-    case GCSDjimMolenkamp.PFDSettingsModel.Position.TOPLEFT:
+    case MineGCS.PFDSettingsModel.Position.TOPLEFT:
       this.pfdPositionLeft.button('toggle');
       this.pfdPositionUp.button('toggle');
       break;
-    case GCSDjimMolenkamp.PFDSettingsModel.Position.TOPRIGHT:
+    case MineGCS.PFDSettingsModel.Position.TOPRIGHT:
       this.pfdPositionRight.button('toggle');
       this.pfdPositionUp.button('toggle');
       break;
-    case GCSDjimMolenkamp.PFDSettingsModel.Position.BOTTOMLEFT:
+    case MineGCS.PFDSettingsModel.Position.BOTTOMLEFT:
       this.pfdPositionLeft.button('toggle');
       this.pfdPositionDown.button('toggle');
       break;
-    case GCSDjimMolenkamp.PFDSettingsModel.Position.BOTTOMRIGHT:
+    case MineGCS.PFDSettingsModel.Position.BOTTOMRIGHT:
       this.pfdPositionRight.button('toggle');
       this.pfdPositionDown.button('toggle');
       break;

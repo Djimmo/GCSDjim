@@ -1,7 +1,7 @@
-goog.provide('GCSDjimMolenkamp.PFDView');
+goog.provide('MineGCS.PFDView');
 
-goog.require('GCSDjimMolenkamp.PFD');
-goog.require('GCSDjimMolenkamp.PFDSettingsModel');
+goog.require('MineGCS.PFD');
+goog.require('MineGCS.PFDSettingsModel');
 
 
 
@@ -11,19 +11,19 @@ goog.require('GCSDjimMolenkamp.PFDSettingsModel');
  * @constructor
  * @extends {Backbone.View}
  */
-GCSDjimMolenkamp.PFDView = function(properties) {
+MineGCS.PFDView = function(properties) {
   this.pfd = null;
   this.settingToDimension = {};
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.PFDView, Backbone.View);
+goog.inherits(MineGCS.PFDView, Backbone.View);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.PFDView.prototype.initialize = function() {
+MineGCS.PFDView.prototype.initialize = function() {
   this.blockel = this.options['blockel'];
   this.statel = this.options['statel'];
   this.pfdel = $('#' + this.options['drawingid']);
@@ -39,20 +39,20 @@ GCSDjimMolenkamp.PFDView.prototype.initialize = function() {
       'NAV_CONTROLLER_OUTPUT', this.onNavControllerOutputChange, this);
 
   /* Create pfd object */
-  this.pfd = new GCSDjimMolenkamp.PFD(this.options['drawingid']);
+  this.pfd = new MineGCS.PFD(this.options['drawingid']);
 
   /* Connect to settings model */
   if (this.options['settingsModel']) {
     this.settingsModel = this.options['settingsModel'];
-    this.settingToDimension[GCSDjimMolenkamp.PFDSettingsModel.Size.STANDARD] = {
+    this.settingToDimension[MineGCS.PFDSettingsModel.Size.STANDARD] = {
       'height': function() { return '280px'; },
       'width': function() { return '400px'; }
     };
-    this.settingToDimension[GCSDjimMolenkamp.PFDSettingsModel.Size.FULLSCREEN] = {
+    this.settingToDimension[MineGCS.PFDSettingsModel.Size.FULLSCREEN] = {
       'height': function() { return $(window).height() - 120; },
       'width': function() { return $(window).width();}
     };
-    this.settingToDimension[GCSDjimMolenkamp.PFDSettingsModel.Size.SMALL] = {
+    this.settingToDimension[MineGCS.PFDSettingsModel.Size.SMALL] = {
       'height': function() { return '140px'; },
       'width': function() { return '200px'; }
     };
@@ -70,7 +70,7 @@ GCSDjimMolenkamp.PFDView.prototype.initialize = function() {
 /**
  * Handles ATTITUDE mavlink messages.
  */
-GCSDjimMolenkamp.PFDView.prototype.onAttitudeChange = function() {
+MineGCS.PFDView.prototype.onAttitudeChange = function() {
   this.pfd.setAttitude(this.attitude.get('pitch'),
                        this.attitude.get('roll'));
   this.pfd.draw();
@@ -80,7 +80,7 @@ GCSDjimMolenkamp.PFDView.prototype.onAttitudeChange = function() {
 /**
  * Handles VFR_HUD mavlink messages.
  */
-GCSDjimMolenkamp.PFDView.prototype.onVfrHudChange = function() {
+MineGCS.PFDView.prototype.onVfrHudChange = function() {
   var alt = this.vfrHud.get('alt');
   this.pfd.setAltitude(alt);
   var airSpeed = this.vfrHud.get('airspeed');
@@ -92,7 +92,7 @@ GCSDjimMolenkamp.PFDView.prototype.onVfrHudChange = function() {
 /**
  * Handles NAV_CONTROLLER_OUTPUT mavlink messages.
  */
-GCSDjimMolenkamp.PFDView.prototype.onNavControllerOutputChange = function() {
+MineGCS.PFDView.prototype.onNavControllerOutputChange = function() {
   var alt_error = this.navControllerOutput.get('alt_error');
   var aspd_error = this.navControllerOutput.get('aspd_error');
   if (Math.abs(alt_error) > 0) {
@@ -107,7 +107,7 @@ GCSDjimMolenkamp.PFDView.prototype.onNavControllerOutputChange = function() {
 /**
  * Handles changes to the settings model.
  */
-GCSDjimMolenkamp.PFDView.prototype.onSettingsChange = function() {
+MineGCS.PFDView.prototype.onSettingsChange = function() {
   var settings = this.settingsModel.toJSON();
   this.setPosition(settings['position']);
   this.setSize(settings['size']);
@@ -117,21 +117,21 @@ GCSDjimMolenkamp.PFDView.prototype.onSettingsChange = function() {
 /**
  * Changes the position of the PFD.
  *
- * @param {GCSDjimMolenkamp.PFDSettingsModel.Position} position The desired position.
+ * @param {MineGCS.PFDSettingsModel.Position} position The desired position.
  */
-GCSDjimMolenkamp.PFDView.prototype.setPosition = function(position) {
+MineGCS.PFDView.prototype.setPosition = function(position) {
   this.blockel.removeClass('pfd-top pfd-bottom pfd-left pfd-right');
   switch (position) {
-    case GCSDjimMolenkamp.PFDSettingsModel.Position.TOPLEFT:
+    case MineGCS.PFDSettingsModel.Position.TOPLEFT:
       this.blockel.addClass('pfd-top pfd-left');
       break;
-    case GCSDjimMolenkamp.PFDSettingsModel.Position.TOPRIGHT:
+    case MineGCS.PFDSettingsModel.Position.TOPRIGHT:
       this.blockel.addClass('pfd-top pfd-right');
       break;
-    case GCSDjimMolenkamp.PFDSettingsModel.Position.BOTTOMLEFT:
+    case MineGCS.PFDSettingsModel.Position.BOTTOMLEFT:
       this.blockel.addClass('pfd-bottom pfd-left');
       break;
-    case GCSDjimMolenkamp.PFDSettingsModel.Position.BOTTOMRIGHT:
+    case MineGCS.PFDSettingsModel.Position.BOTTOMRIGHT:
       this.blockel.addClass('pfd-bottom pfd-right');
       break;
   }
@@ -141,20 +141,20 @@ GCSDjimMolenkamp.PFDView.prototype.setPosition = function(position) {
 /**
  * Changes the size of the PFD.
  *
- * @param {GCSDjimMolenkamp.PFDSettingsModel.Size} size The desired size.
+ * @param {MineGCS.PFDSettingsModel.Size} size The desired size.
  */
-GCSDjimMolenkamp.PFDView.prototype.setSize = function(size) {
+MineGCS.PFDView.prototype.setSize = function(size) {
   goog.asserts.assert(
-      goog.object.containsValue(GCSDjimMolenkamp.PFDSettingsModel.Size, size),
+      goog.object.containsValue(MineGCS.PFDSettingsModel.Size, size),
       'unknown PFD size value: ' + size);
   var block = this.blockel;
-  if (size == GCSDjimMolenkamp.PFDSettingsModel.Size.FULLSCREEN) {
+  if (size == MineGCS.PFDSettingsModel.Size.FULLSCREEN) {
     $('#droneicon').addClass('droneicon-hide');
   } else if ($('#droneicon').hasClass('droneicon-hide')) {
     $('#droneicon').removeClass('droneicon-hide');
   }
 
-  if (size == GCSDjimMolenkamp.PFDSettingsModel.Size.HIDDEN) {
+  if (size == MineGCS.PFDSettingsModel.Size.HIDDEN) {
     this.pfd.setVisible(false);
     block.hide();
   } else {

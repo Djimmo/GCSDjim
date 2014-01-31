@@ -8,9 +8,9 @@
  *   KineticJS 4.1
  */
 
-goog.provide('GCSDjimMolenkamp.ArtificialHorizon');
-goog.provide('GCSDjimMolenkamp.PFD');
-goog.provide('GCSDjimMolenkamp.Tape');
+goog.provide('MineGCS.ArtificialHorizon');
+goog.provide('MineGCS.PFD');
+goog.provide('MineGCS.Tape');
 
 goog.require('goog.dom');
 
@@ -24,11 +24,11 @@ goog.require('goog.dom');
  * @constructor
  * @extends {Kinetic.Shape}
  */
-GCSDjimMolenkamp.ArtificialHorizon = function(config) {
+MineGCS.ArtificialHorizon = function(config) {
   this.initArtificialHorizon_(config);
   goog.base(this, config);
 };
-goog.inherits(GCSDjimMolenkamp.ArtificialHorizon, Kinetic.Shape);
+goog.inherits(MineGCS.ArtificialHorizon, Kinetic.Shape);
 
 
 /**
@@ -36,7 +36,7 @@ goog.inherits(GCSDjimMolenkamp.ArtificialHorizon, Kinetic.Shape);
  * @param {Object} config The configuration parameters.
  * @private
  */
-GCSDjimMolenkamp.ArtificialHorizon.prototype.initArtificialHorizon_ = function(config) {
+MineGCS.ArtificialHorizon.prototype.initArtificialHorizon_ = function(config) {
   Kinetic.Shape.call(this, config);
   this.setAttrs({
     'width': 100,
@@ -59,7 +59,7 @@ GCSDjimMolenkamp.ArtificialHorizon.prototype.initArtificialHorizon_ = function(c
  * @override
  * @export
  */
-GCSDjimMolenkamp.ArtificialHorizon.prototype.drawFunc = function(canvas) {
+MineGCS.ArtificialHorizon.prototype.drawFunc = function(canvas) {
   var context = canvas.getContext();
   var horizon = this.getHorizon_(this.pitch);
   var attrs = this.getAttrs();
@@ -162,7 +162,7 @@ GCSDjimMolenkamp.ArtificialHorizon.prototype.drawFunc = function(canvas) {
  * @param {boolean} filled Whether the triangle is filled.
  * @private
  */
-GCSDjimMolenkamp.ArtificialHorizon.prototype.drawTriangle_ = function(
+MineGCS.ArtificialHorizon.prototype.drawTriangle_ = function(
     context, theta, length, radius, filled) {
   var cos = Math.cos(theta);
   var sin = Math.sin(theta);
@@ -195,7 +195,7 @@ GCSDjimMolenkamp.ArtificialHorizon.prototype.drawTriangle_ = function(
  * @param {number} radius The radius of the circle.
  * @private
  */
-GCSDjimMolenkamp.ArtificialHorizon.prototype.drawRollRung_ = function(
+MineGCS.ArtificialHorizon.prototype.drawRollRung_ = function(
     context, theta, length, radius) {
   var cos = Math.cos(theta);
   var sin = Math.sin(theta);
@@ -218,7 +218,7 @@ GCSDjimMolenkamp.ArtificialHorizon.prototype.drawRollRung_ = function(
  * @param {number} length The length of the rung.
  * @private
  */
-GCSDjimMolenkamp.ArtificialHorizon.prototype.drawPitchRung_ = function(
+MineGCS.ArtificialHorizon.prototype.drawPitchRung_ = function(
     context, pitchAngle, length) {
   var attrs = this.getAttrs();
   var height = attrs['height'];
@@ -246,7 +246,7 @@ GCSDjimMolenkamp.ArtificialHorizon.prototype.drawPitchRung_ = function(
  * @return {number} The Y coordinate.
  * @private
  */
-GCSDjimMolenkamp.ArtificialHorizon.prototype.getHorizon_ = function(pitch) {
+MineGCS.ArtificialHorizon.prototype.getHorizon_ = function(pitch) {
   return Math.sin(pitch) * this.radius;
 };
 
@@ -256,7 +256,7 @@ GCSDjimMolenkamp.ArtificialHorizon.prototype.getHorizon_ = function(pitch) {
  * @param {number} pitch The pitch angle.
  * @param {number} roll The roll angle.
  */
-GCSDjimMolenkamp.ArtificialHorizon.prototype.setPitchRoll = function(pitch, roll) {
+MineGCS.ArtificialHorizon.prototype.setPitchRoll = function(pitch, roll) {
   this.pitch = pitch;
   this.roll = roll;
 };
@@ -275,30 +275,30 @@ GCSDjimMolenkamp.ArtificialHorizon.prototype.setPitchRoll = function(pitch, roll
  * config {string} config.fontFamily The font to use for labels.
  * config {number} config.fontSize The font size to use for labels.
  * config {string} config.fontStyle The font style to use for labels.
- * config {GCSDjimMolenkamp.Tape.SideType} side Whether the Tape is on the left or the
+ * config {MineGCS.Tape.SideType} side Whether the Tape is on the left or the
  *     right.
  * @constructor
  * @extends {Kinetic.Shape}
  */
-GCSDjimMolenkamp.Tape = function(config) {
+MineGCS.Tape = function(config) {
   goog.base(this, config);
   this.initTape_(config);
 };
-goog.inherits(GCSDjimMolenkamp.Tape, Kinetic.Shape);
+goog.inherits(MineGCS.Tape, Kinetic.Shape);
 
 
 /**
  * Default Tape width.
  * @type {number}
  */
-GCSDjimMolenkamp.Tape.WIDTH = 30;
+MineGCS.Tape.WIDTH = 30;
 
 
 /**
  * Default Tape height.
  * @type {number}
  */
-GCSDjimMolenkamp.Tape.HEIGHT = 140;
+MineGCS.Tape.HEIGHT = 140;
 
 
 /**
@@ -306,9 +306,9 @@ GCSDjimMolenkamp.Tape.HEIGHT = 140;
  * @param {Object} config The configuration parameters.
  * @private
  */
-GCSDjimMolenkamp.Tape.prototype.initTape_ = function(config) {
-  var WIDTH = GCSDjimMolenkamp.Tape.WIDTH;
-  var HEIGHT = GCSDjimMolenkamp.Tape.HEIGHT;
+MineGCS.Tape.prototype.initTape_ = function(config) {
+  var WIDTH = MineGCS.Tape.WIDTH;
+  var HEIGHT = MineGCS.Tape.HEIGHT;
   this.setAttrs({
     'backgroundColor': undefined,
     'width': WIDTH,
@@ -316,7 +316,7 @@ GCSDjimMolenkamp.Tape.prototype.initTape_ = function(config) {
     'fontFamily': 'Calibri',
     'fontSize': 12,
     'fontStyle': 'normal',
-    'side': GCSDjimMolenkamp.Tape.SideType.LEFT
+    'side': MineGCS.Tape.SideType.LEFT
   });
   this.value = 0;
   this.targetValue = null;
@@ -364,9 +364,9 @@ GCSDjimMolenkamp.Tape.prototype.initTape_ = function(config) {
  * @return {number} Returns the reflected coordinate.
  * @private
  */
-GCSDjimMolenkamp.Tape.prototype.reflect1_ = function(x_coord) {
+MineGCS.Tape.prototype.reflect1_ = function(x_coord) {
   var attrs = this.getAttrs();
-  if (attrs['side'] === GCSDjimMolenkamp.Tape.SideType.RIGHT) {
+  if (attrs['side'] === MineGCS.Tape.SideType.RIGHT) {
     var width = attrs['width'];
     return width - x_coord;
   } else {
@@ -384,9 +384,9 @@ GCSDjimMolenkamp.Tape.prototype.reflect1_ = function(x_coord) {
  * @return {Array.<number>} Returns the reflected coordinates.
  * @private
  */
-GCSDjimMolenkamp.Tape.prototype.reflect_ = function(points) {
+MineGCS.Tape.prototype.reflect_ = function(points) {
   var attrs = this.getAttrs();
-  if (attrs['side'] === GCSDjimMolenkamp.Tape.SideType.RIGHT) {
+  if (attrs['side'] === MineGCS.Tape.SideType.RIGHT) {
     var width = attrs['width'];
     var len = points.length;
     for (var i = 0; i < len; i += 2) {
@@ -401,7 +401,7 @@ GCSDjimMolenkamp.Tape.prototype.reflect_ = function(points) {
  * Sets the instantaneous value to display on the tape.
  * @param {number} value The value.
  */
-GCSDjimMolenkamp.Tape.prototype.setValue = function(value) {
+MineGCS.Tape.prototype.setValue = function(value) {
   if (value != this.value) {
     this.value = value;
     var valueText = 'ERR';
@@ -423,7 +423,7 @@ GCSDjimMolenkamp.Tape.prototype.setValue = function(value) {
  * Sets the target value to display on the tape with the bug.
  * @param {number} target The target value.  Can be null to turn off the bug.
  */
-GCSDjimMolenkamp.Tape.prototype.setTargetValue = function(target) {
+MineGCS.Tape.prototype.setTargetValue = function(target) {
   this.targetValue = target;
 };
 
@@ -433,14 +433,14 @@ GCSDjimMolenkamp.Tape.prototype.setTargetValue = function(target) {
  * @override
  * @export
  */
-GCSDjimMolenkamp.Tape.prototype.drawFunc = function(canvas) {
+MineGCS.Tape.prototype.drawFunc = function(canvas) {
   var context = canvas.getContext();
   // The tape displays 3 pieces of info:
   //   * current value
   //   * moving value ladder
   //   * target value, if set
-  var WIDTH = GCSDjimMolenkamp.Tape.WIDTH;
-  var HEIGHT = GCSDjimMolenkamp.Tape.HEIGHT;
+  var WIDTH = MineGCS.Tape.WIDTH;
+  var HEIGHT = MineGCS.Tape.HEIGHT;
   var attrs = this.getAttrs();
 
   // background
@@ -470,7 +470,7 @@ GCSDjimMolenkamp.Tape.prototype.drawFunc = function(canvas) {
   context.fillStyle = attrs['fontColor'];
   context.strokeStyle = attrs['fontColor'];
   context.textBaseLine = 'top';
-  if (attrs['side'] === GCSDjimMolenkamp.Tape.SideType.LEFT) {
+  if (attrs['side'] === MineGCS.Tape.SideType.LEFT) {
     context.textAlign = 'right';
   } else {
     context.textAlign = 'left';
@@ -533,7 +533,7 @@ GCSDjimMolenkamp.Tape.prototype.drawFunc = function(canvas) {
  * Which side is the Tape on.
  * @enum {string}
  */
-GCSDjimMolenkamp.Tape.SideType = {
+MineGCS.Tape.SideType = {
   LEFT: 'left',
   RIGHT: 'right'
 };
@@ -545,7 +545,7 @@ GCSDjimMolenkamp.Tape.SideType = {
  * @param {string|Element} container The DOM element to put the PFD in.
  * @constructor
  */
-GCSDjimMolenkamp.PFD = function(container) {
+MineGCS.PFD = function(container) {
   this.init(container);
 };
 
@@ -555,7 +555,7 @@ GCSDjimMolenkamp.PFD = function(container) {
  * @param {string|Element} container The DOM element to put the PFD in.
  * @param {Object=} opt_options Configuration options.
 */
-GCSDjimMolenkamp.PFD.prototype.init = function(container, opt_options) {
+MineGCS.PFD.prototype.init = function(container, opt_options) {
   var options = opt_options || {};
   this.options = options;
   this.options['fontFamily'] = options['fontFamily'] ||
@@ -590,7 +590,7 @@ GCSDjimMolenkamp.PFD.prototype.init = function(container, opt_options) {
                       containerElt.offsetWidth / 200.0);
 
   // Artificial horizon.
-  this.attitudeIndicator = new GCSDjimMolenkamp.ArtificialHorizon({
+  this.attitudeIndicator = new MineGCS.ArtificialHorizon({
     'x': 35,
     'y': 20,
     'width': 130,
@@ -603,7 +603,7 @@ GCSDjimMolenkamp.PFD.prototype.init = function(container, opt_options) {
   this.layer.add(this.attitudeIndicator);
 
   // Speed tape.
-  this.speedTape = new GCSDjimMolenkamp.Tape({
+  this.speedTape = new MineGCS.Tape({
     'x': 0,
     'y': 15,
     'fill': this.options['backgroundColor2'],
@@ -612,12 +612,12 @@ GCSDjimMolenkamp.PFD.prototype.init = function(container, opt_options) {
     'fontSize': this.options['fontSize'],
     'instantaneousBackgroundColor': this.options['backgroundColor1'],
     'bugColor': this.options['bugColor'],
-    'side': GCSDjimMolenkamp.Tape.SideType.LEFT
+    'side': MineGCS.Tape.SideType.LEFT
   });
   this.layer.add(this.speedTape);
 
   // Altitude tape.
-  this.altitudeTape = new GCSDjimMolenkamp.Tape({
+  this.altitudeTape = new MineGCS.Tape({
     'x': 170,
     'y': 15,
     'fill': this.options['backgroundColor2'],
@@ -626,7 +626,7 @@ GCSDjimMolenkamp.PFD.prototype.init = function(container, opt_options) {
     'fontSize': this.options['fontSize'],
     'instantaneousBackgroundColor': this.options['backgroundColor1'],
     'bugColor': this.options['bugColor'],
-    'side': GCSDjimMolenkamp.Tape.SideType.RIGHT
+    'side': MineGCS.Tape.SideType.RIGHT
   });
   this.layer.add(this.altitudeTape);
 
@@ -660,7 +660,7 @@ GCSDjimMolenkamp.PFD.prototype.init = function(container, opt_options) {
  * @param {number} width The width.
  * @param {number} height The height.
  */
-GCSDjimMolenkamp.PFD.prototype.setSize = function(width, height) {
+MineGCS.PFD.prototype.setSize = function(width, height) {
   var aspect = width / height;
   var w, h = 0;
   if (aspect > (4 / 3)) {
@@ -677,7 +677,7 @@ GCSDjimMolenkamp.PFD.prototype.setSize = function(width, height) {
  * Sets the vehicle speed.
  * @param {number} speed The vehicle speed.
  */
-GCSDjimMolenkamp.PFD.prototype.setSpeed = function(speed) {
+MineGCS.PFD.prototype.setSpeed = function(speed) {
   this.speedTape.setValue(speed);
 };
 
@@ -686,7 +686,7 @@ GCSDjimMolenkamp.PFD.prototype.setSpeed = function(speed) {
  * Sets the vehicle's target speed.
  * @param {number} speed The target speed.
 */
-GCSDjimMolenkamp.PFD.prototype.setTargetSpeed = function(speed) {
+MineGCS.PFD.prototype.setTargetSpeed = function(speed) {
   this.targetSpeed = speed;
   if (speed === null) {
     this.speedTape.setTargetValue(null);
@@ -702,7 +702,7 @@ GCSDjimMolenkamp.PFD.prototype.setTargetSpeed = function(speed) {
 /**
  * Draws the PFD.
  */
-GCSDjimMolenkamp.PFD.prototype.draw = function() {
+MineGCS.PFD.prototype.draw = function() {
   if (this.visible) {
     this.layer.draw();
   }
@@ -715,7 +715,7 @@ GCSDjimMolenkamp.PFD.prototype.draw = function() {
  * should be some other way of detecting that?
  * @param {boolean} isVisible Whether the PFD is visible.
  */
-GCSDjimMolenkamp.PFD.prototype.setVisible = function(isVisible) {
+MineGCS.PFD.prototype.setVisible = function(isVisible) {
   this.visible = isVisible;
 };
 
@@ -724,7 +724,7 @@ GCSDjimMolenkamp.PFD.prototype.setVisible = function(isVisible) {
  * Sets the vehicle altitude.
  * @param {number} altitude The altitude.
  */
-GCSDjimMolenkamp.PFD.prototype.setAltitude = function(altitude) {
+MineGCS.PFD.prototype.setAltitude = function(altitude) {
   this.altitudeTape.setValue(altitude);
 };
 
@@ -733,7 +733,7 @@ GCSDjimMolenkamp.PFD.prototype.setAltitude = function(altitude) {
  * Sets the vehicle's target altitude.
  * @param {number} altitude The target altitude.
  */
-GCSDjimMolenkamp.PFD.prototype.setTargetAltitude = function(altitude) {
+MineGCS.PFD.prototype.setTargetAltitude = function(altitude) {
   this.targetAltitude = altitude;
   if (altitude === null) {
     this.altitudeTape.setTargetValue(null);
@@ -750,7 +750,7 @@ GCSDjimMolenkamp.PFD.prototype.setTargetAltitude = function(altitude) {
  * Sets the vehicle's heading.
  * @param {number} heading The heading.
  */
-GCSDjimMolenkamp.PFD.setHeading = function(heading) {
+MineGCS.PFD.setHeading = function(heading) {
 };
 
 
@@ -759,6 +759,6 @@ GCSDjimMolenkamp.PFD.setHeading = function(heading) {
  * @param {number} pitch The pitch angle.
  * @param {number} roll The roll angle.
  */
-GCSDjimMolenkamp.PFD.prototype.setAttitude = function(pitch, roll) {
+MineGCS.PFD.prototype.setAttitude = function(pitch, roll) {
   this.attitudeIndicator.setPitchRoll(pitch, roll);
 };

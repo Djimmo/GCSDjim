@@ -32,7 +32,7 @@ def is_text_present(sel, text):
   return text in el.text
 
 
-class GCSDjimMolenkampWebTest(unittest.TestCase):
+class MineGCSWebTest(unittest.TestCase):
   def setUp(self):
     self.driver = webdriver.Firefox()
     self.driver.implicitly_wait(30)

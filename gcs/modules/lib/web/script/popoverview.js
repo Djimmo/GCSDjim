@@ -1,5 +1,5 @@
-goog.provide('GCSDjimMolenkamp.PopoverView');
-goog.provide('GCSDjimMolenkamp.SelectionModel');
+goog.provide('MineGCS.PopoverView');
+goog.provide('MineGCS.SelectionModel');
 
 
 /**
@@ -8,17 +8,17 @@ goog.provide('GCSDjimMolenkamp.SelectionModel');
  * @constructor
  * @extends {Backbone.Model}
  */
-GCSDjimMolenkamp.SelectionModel = function(opt_properties) {
+MineGCS.SelectionModel = function(opt_properties) {
   goog.base(this, opt_properties);
 };
-goog.inherits(GCSDjimMolenkamp.SelectionModel, Backbone.Model);
+goog.inherits(MineGCS.SelectionModel, Backbone.Model);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.SelectionModel.prototype.defaults = function() {
+MineGCS.SelectionModel.prototype.defaults = function() {
   return {
     'selected': false
   };
@@ -31,25 +31,25 @@ GCSDjimMolenkamp.SelectionModel.prototype.defaults = function() {
  * @constructor
  * @extends {Backbone.View}
  */
-GCSDjimMolenkamp.PopoverView = function(properties) {
+MineGCS.PopoverView = function(properties) {
   this.template = '<div class="popover"><div class="arrow"></div>' +
         '<div class="popover-inner"><h3 class="popover-title"></h3>' +
         '<div class="popover-content"><p></p></div></div></div>';
   goog.base(this, properties);
 };
-goog.inherits(GCSDjimMolenkamp.PopoverView, Backbone.View);
+goog.inherits(MineGCS.PopoverView, Backbone.View);
 
 
 /**
  * @override
  * @export
  */
-GCSDjimMolenkamp.PopoverView.prototype.initialize = function() {
+MineGCS.PopoverView.prototype.initialize = function() {
   this.$el = null;
   this.btn = this.options['btn'];
   this.placement = this.options['placement'] || 'bottom';
   this.delegate = this.options['delegate'];
-  this.selectionModel = new GCSDjimMolenkamp.SelectionModel();
+  this.selectionModel = new MineGCS.SelectionModel();
   this.radioBtnController = this.options['radioBtnController'];
 
   this.selectionModel.bind('change', this.onSelectionChange_, this);
@@ -58,21 +58,21 @@ GCSDjimMolenkamp.PopoverView.prototype.initialize = function() {
                 this.radioBtnController, this));
 };
 
-GCSDjimMolenkamp.PopoverView.prototype.select = function () {
+MineGCS.PopoverView.prototype.select = function () {
   this.selectionModel.set('selected', true);
 };
 
-GCSDjimMolenkamp.PopoverView.prototype.deselect = function () {
+MineGCS.PopoverView.prototype.deselect = function () {
   this.selectionModel.set('selected', false);
 };
 
-GCSDjimMolenkamp.PopoverView.prototype.selected = function () {
+MineGCS.PopoverView.prototype.selected = function () {
   return this.selectionModel.get('selected');
 };
 /**
  * Handles selection change.
  */
-GCSDjimMolenkamp.PopoverView.prototype.onSelectionChange_ = function() {
+MineGCS.PopoverView.prototype.onSelectionChange_ = function() {
   if (this.selectionModel.get('selected')) {
     this.createElement();
     var inner = this.$el.find('.popover-inner');
@@ -83,7 +83,7 @@ GCSDjimMolenkamp.PopoverView.prototype.onSelectionChange_ = function() {
   }
 };
 
-GCSDjimMolenkamp.PopoverView.prototype.createElement= function () {
+MineGCS.PopoverView.prototype.createElement= function () {
   this.$el = $(this.template);
   this.$el.removeClass('fade top bottom left right in');
   this.$el
@@ -97,7 +97,7 @@ GCSDjimMolenkamp.PopoverView.prototype.createElement= function () {
     .addClass('in');
 };
 
-GCSDjimMolenkamp.PopoverView.prototype.placementStyle = function (placement) {
+MineGCS.PopoverView.prototype.placementStyle = function (placement) {
   var pos = $.extend({}, this.btn.$el.offset(),
       { width: this.btn.$el[0].offsetWidth,
         height: this.btn.$el[0].offsetHeight
@@ -120,7 +120,7 @@ GCSDjimMolenkamp.PopoverView.prototype.placementStyle = function (placement) {
   }
 };
 
-GCSDjimMolenkamp.PopoverView.prototype.destroyElement = function () {
+MineGCS.PopoverView.prototype.destroyElement = function () {
   if (this.$el) {
     this.$el.remove();
   }
